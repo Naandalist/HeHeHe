@@ -1,16 +1,17 @@
 import { Text, View, StyleSheet, useColorScheme } from "react-native";
 import React from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import HomeScreen from "@/screens/HomeScreen";
 
 const Tab = createMaterialTopTabNavigator();
 
-function HomeScreen() {
-  return (
-    <View style={styles.tabContent}>
-      <Text style={styles.text}>Home Content</Text>
-    </View>
-  );
-}
+// function HomeScreen() {
+//   return (
+//     <View style={styles.tabContent}>
+//       <Text style={styles.text}>Home Content</Text>
+//     </View>
+//   );
+// }
 
 function FreshScreen() {
   return (
@@ -37,8 +38,10 @@ export default function Index() {
       <Tab.Navigator
         screenOptions={{
           tabBarStyle: {
-            backgroundColor: "#f0f0f0",
-            paddingTop: 50,
+            backgroundColor: "#FFF",
+            // paddingTop: 50,
+            borderTopWidth: 1, // Add border width
+            borderTopColor: "#000", // Add border color
           },
           tabBarActiveTintColor: "#65a4ec",
           tabBarInactiveTintColor: "#000000",
