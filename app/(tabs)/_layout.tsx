@@ -1,35 +1,149 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { Tabs } from "expo-router";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { Pressable, Alert } from "react-native";
+import { useActionSheet } from "@expo/react-native-action-sheet";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  const { showActionSheetWithOptions } = useActionSheet();
+
+  const openActionSheet = () => {
+    const options = [
+      "0 koin",
+      "hurairaalistisa384",
+      "Lahelu Plus",
+      "Tersimpan",
+      "Koin gratis",
+      "Logout",
+      "Pengaturan",
+      "Hubungi kami",
+      "Cancel",
+    ];
+    const cancelButtonIndex = options.length - 1;
+
+    showActionSheetWithOptions(
+      {
+        options,
+        cancelButtonIndex,
+        destructiveButtonIndex: 5, // Index for 'Logout'
+      },
+      (selectedIndex: number | undefined) => {
+        switch (selectedIndex) {
+          case 0:
+            // Handle '0 koin'
+            break;
+          case 1:
+            // Handle 'hurairaalistisa384'
+            break;
+          case 2:
+            // Handle 'Lahelu Plus'
+            break;
+          case 3:
+            // Handle 'Tersimpan'
+            break;
+          case 4:
+            // Handle 'Koin gratis'
+            break;
+          case 5:
+            // Handle 'Logout'
+            break;
+          case 6:
+            // Handle 'Pengaturan'
+            break;
+          case 7:
+            // Handle 'Hubungi kami'
+            break;
+          // Add cases for other options as needed
+        }
+      }
+    );
+  };
+
+  const handlePress = (tabName: string) => {
+    Alert.alert(
+      `${tabName} pressed`,
+      "This tab doesn't navigate to a new screen."
+    );
+  };
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-      }}>
+        tabBarActiveTintColor: "#65a4ec",
+        tabBarShowLabel: false,
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
+          title: "Home",
+          headerShown: false,
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
+            <Ionicons name={"home-outline"} color={color} size={24} />
           ),
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="topic"
         options={{
-          title: 'Explore',
+          title: "Topic",
+          headerShown: false,
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+            <Ionicons name={"people-outline"} color={color} size={24} />
           ),
+        }}
+      />
+      <Tabs.Screen
+        name="add-post"
+        options={{
+          title: "Add New Post",
+          headerShown: false,
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="add-circle-outline" color={color} size={24} />
+          ),
+          tabBarButton: (props) => (
+            <Pressable {...props} onPress={() => handlePress("Add Post")} />
+          ),
+        }}
+        listeners={{
+          tabPress: (e) => {
+            e.preventDefault();
+          },
+        }}
+      />
+      <Tabs.Screen
+        name="notif"
+        options={{
+          title: "Notification",
+          headerShown: false,
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="notifications-outline" color={color} size={24} />
+          ),
+          tabBarButton: (props) => (
+            <Pressable {...props} onPress={() => handlePress("notification")} />
+          ),
+        }}
+        listeners={{
+          tabPress: (e) => {
+            e.preventDefault();
+          },
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: "Profile",
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="person-circle-outline" color={color} size={24} />
+          ),
+          tabBarButton: (props) => (
+            <Pressable {...props} onPress={() => openActionSheet()} />
+          ),
+        }}
+        listeners={{
+          tabPress: (e) => {
+            console.log("hahahuhu");
+            e.preventDefault();
+          },
         }}
       />
     </Tabs>

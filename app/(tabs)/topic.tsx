@@ -1,34 +1,26 @@
-import { Text, View, StyleSheet, useColorScheme } from "react-native";
 import React from "react";
+import { View, Text, StyleSheet, useColorScheme } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
 const Tab = createMaterialTopTabNavigator();
 
-function HomeScreen() {
+function TopicContent() {
   return (
     <View style={styles.tabContent}>
-      <Text style={styles.text}>Home Content</Text>
+      <Text style={styles.text}>Topik Content</Text>
     </View>
   );
 }
 
-function FreshScreen() {
+function HasJoinContent() {
   return (
     <View style={styles.tabContent}>
-      <Text style={styles.text}>Fresh Content</Text>
+      <Text style={styles.text}>Sudah Gabung Content</Text>
     </View>
   );
 }
 
-function TrendingScreen() {
-  return (
-    <View style={styles.tabContent}>
-      <Text style={styles.text}>Trending Content</Text>
-    </View>
-  );
-}
-
-export default function Index() {
+export default function TopicScreen() {
   const colorScheme = useColorScheme();
   const isDarkMode = colorScheme === "dark";
 
@@ -47,9 +39,8 @@ export default function Index() {
           },
         }}
       >
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Fresh" component={FreshScreen} />
-        <Tab.Screen name="Trending" component={TrendingScreen} />
+        <Tab.Screen name="Topik" component={TopicContent} />
+        <Tab.Screen name="Sudah Gabung" component={HasJoinContent} />
       </Tab.Navigator>
     </View>
   );
