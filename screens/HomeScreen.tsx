@@ -16,6 +16,7 @@ import {
   PinchGestureHandlerGestureEvent,
 } from "react-native-gesture-handler";
 import uuid from "react-native-uuid";
+import { ImageZoom } from "@dailyy-app/react-native-image-zoom";
 
 interface PostInfo {
   postID: string;
@@ -56,6 +57,9 @@ const HomeScreen: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   // State to track if the list is being refreshed
   const [refreshing, setRefreshing] = useState<boolean>(false);
+
+  const screenWidth = Dimensions.get("window").width;
+  const screenHeight = Dimensions.get("window").height;
 
   const [isMuted, setIsMuted] = useState<boolean>(true);
   const flatListRef = useRef<FlatList>(null);
@@ -186,20 +190,19 @@ const HomeScreen: React.FC = () => {
   // Render individual post item
   const renderPost = useCallback(
     ({ item }: { item: PostInfo }) => {
-      const screenWidth = Dimensions.get("window").width;
-      const containerSize = screenWidth; // Square container size
       const mediaAspectRatio = item.mediaWidth / item.mediaHeight;
-
       let mediaWidth, mediaHeight;
-      if (mediaAspectRatio > 1) {
-        // Landscape orientation
-        mediaWidth = containerSize;
-        mediaHeight = containerSize / mediaAspectRatio;
+
+      if (mediaAspectRatio > screenWidth / screenHeight) {
+        // Image is wider than the screen
+        mediaWidth = screenWidth;
+        mediaHeight = screenWidth / mediaAspectRatio;
       } else {
-        // Portrait or square orientation
-        mediaHeight = containerSize;
-        mediaWidth = containerSize * mediaAspectRatio;
+        // Image is taller than or equal to the screen
+        mediaHeight = screenHeight;
+        mediaWidth = screenHeight * mediaAspectRatio;
       }
+
       return (
         <View style={styles.post}>
           <View style={styles.postHeader}>
@@ -209,51 +212,40 @@ const HomeScreen: React.FC = () => {
               {new Date(item.createTime).toLocaleDateString()}
             </Text>
           </View>
-          <View
-            style={[
-              styles.mediaContainer,
-              { width: containerSize, height: containerSize },
-            ]}
-          >
-            <PinchGestureHandler onGestureEvent={handlePinch}>
-              <View style={styles.mediaWrapper}>
-                {item.mediaType === 0 ? (
-                  <Image
-                    source={{ uri: item.media }}
-                    style={[
-                      styles.media,
-                      { width: mediaWidth, height: mediaHeight },
-                    ]}
-                    resizeMode="contain"
+          <View style={styles.mediaContainer}>
+            {item.mediaType === 0 ? (
+              <ImageZoom
+                uri={item.media}
+                minScale={0.5}
+                maxScale={3}
+                style={styles.fullScreenZoomable}
+              />
+            ) : (
+              <View style={styles.videoWrapper}>
+                <Video
+                  ref={(ref) => (videoRefs.current[item.postID] = ref)}
+                  source={{ uri: item.media }}
+                  style={[
+                    styles.media,
+                    { width: mediaWidth, height: mediaHeight },
+                  ]}
+                  resizeMode={ResizeMode.CONTAIN}
+                  isLooping
+                  isMuted={isMuted}
+                  useNativeControls={false}
+                />
+                <TouchableOpacity
+                  style={styles.muteButton}
+                  onPress={toggleMute}
+                >
+                  <Ionicons
+                    name={isMuted ? "volume-mute" : "volume-medium"}
+                    size={24}
+                    color="white"
                   />
-                ) : (
-                  <View>
-                    <Video
-                      ref={(ref) => (videoRefs.current[item.postID] = ref)}
-                      source={{ uri: item.media }}
-                      style={[
-                        styles.media,
-                        { width: mediaWidth, height: mediaHeight },
-                      ]}
-                      resizeMode={ResizeMode.CONTAIN}
-                      isLooping
-                      isMuted={isMuted}
-                      useNativeControls={false}
-                    />
-                    <TouchableOpacity
-                      style={styles.muteButton}
-                      onPress={toggleMute}
-                    >
-                      <Ionicons
-                        name={isMuted ? "volume-mute" : "volume-medium"}
-                        size={24}
-                        color="white"
-                      />
-                    </TouchableOpacity>
-                  </View>
-                )}
+                </TouchableOpacity>
               </View>
-            </PinchGestureHandler>
+            )}
           </View>
           <View style={styles.postFooter}>
             <Text style={styles.caption}>{item.title}</Text>
@@ -284,31 +276,37 @@ const HomeScreen: React.FC = () => {
         </View>
       );
     },
-    [handlePinch]
+    [isMuted, toggleMute, screenWidth, screenHeight]
   );
+
   // Render the main component
   return (
-    <FlatList
-      data={posts}
-      ref={flatListRef}
-      renderItem={renderPost}
-      keyExtractor={(item) => item.postID}
-      onViewableItemsChanged={onViewableItemsChanged}
-      viewabilityConfig={viewabilityConfig}
-      // onEndReached={fetchPosts} // Load more posts when reaching the end
-      onEndReachedThreshold={0.1}
-      ListFooterComponent={
-        loading ? <Text style={styles.loading}>Loading...</Text> : null
-      }
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }
-    />
+    <View style={styles.container}>
+      <FlatList
+        data={posts}
+        ref={flatListRef}
+        renderItem={renderPost}
+        keyExtractor={(item) => item.postID}
+        onViewableItemsChanged={onViewableItemsChanged}
+        viewabilityConfig={viewabilityConfig}
+        // onEndReached={fetchPosts} // Load more posts when reaching the end
+        onEndReachedThreshold={0.1}
+        ListFooterComponent={
+          loading ? <Text style={styles.loading}>Loading...</Text> : null
+        }
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      />
+    </View>
   );
 };
 
 // Styles for the component
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   post: {
     marginBottom: 15,
     backgroundColor: "white",
@@ -317,6 +315,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     padding: 10,
+    zIndex: 1,
   },
   avatar: {
     width: 40,
@@ -332,20 +331,29 @@ const styles = StyleSheet.create({
     color: "gray",
   },
   mediaContainer: {
-    overflow: "hidden",
-    backgroundColor: "#f0f0f0", // Light grey background for empty space
+    width: "100%",
+    height: Dimensions.get("window").width,
+    backgroundColor: "#f0f0f0",
+    justifyContent: "center",
+    alignItems: "center",
   },
-  mediaWrapper: {
-    flex: 1,
+  fullScreenZoomable: {
+    width: "100%",
+    height: "100%",
+  },
+  videoWrapper: {
+    width: "100%",
+    height: "100%",
     justifyContent: "center",
     alignItems: "center",
   },
   media: {
     width: "100%",
-    height: undefined,
+    height: "100%",
   },
   postFooter: {
     padding: 10,
+    zIndex: 1,
   },
   caption: {
     marginBottom: 5,
