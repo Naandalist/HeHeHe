@@ -32,6 +32,12 @@ export const styles = StyleSheet.create({
     color: Colors.FILL_2,
     fontSize: FontSizes.XS,
   },
+  title: {
+    marginHorizontal: 16,
+    marginBottom: 10,
+    fontWeight: "bold",
+    fontSize: 16,
+  },
   mediaContainer: {
     backgroundColor: Colors.FILL_6,
     justifyContent: "center",
@@ -81,5 +87,10 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.SEMI_TRANSPARENT_BLACK,
     borderRadius: BorderRadius.XXL,
     padding: Spacing.SPACE_2XS,
+  },
+  playButton: {
+    position: "absolute",
+    backgroundColor: Colors.SEMI_TRANSPARENT_BLACK,
+    borderRadius: BorderRadius.XXL,
   },
 });

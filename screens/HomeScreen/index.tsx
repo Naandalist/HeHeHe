@@ -14,31 +14,44 @@ import { fetchPosts } from "@/api/post";
 import { Colors } from "@/constants";
 
 const HomeScreen: React.FC = () => {
-  // State declarations
+  // State
   const [posts, setPosts] = useState<PostInfo[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [refreshing, setRefreshing] = useState<boolean>(false);
-  const [isMuted, setIsMuted] = useState<boolean>(false);
+  const [playingVideos, setPlayingVideos] = useState<Set<string>>(new Set());
+  const [mutedVideos, setMutedVideos] = useState<Set<string>>(new Set());
 
-  // Ref declarations
+  // Ref
   const flatListRef = useRef<FlatList>(null);
   const videoRefs = useRef<{ [key: string]: Video | null }>({});
-  // Use a ref to track loading state across renders
   const isLoadingRef = useRef<boolean>(false);
 
   /**
-   * Handles the visibility changes of items in the FlatList.
-   * Plays videos when they become visible and pauses them when they're not.
+   * Handling visibility changes of items in the FlatList.
+   * Plays videos when they become visible in viewport and pauses when not visible
    */
   const onViewableItemsChanged = useCallback(
     ({ changed }: { changed: any[] }) => {
-      changed.forEach((change: any) => {
-        const { key, isViewable } = change;
-        if (videoRefs.current[key]) {
+      changed.forEach(({ item, isViewable }) => {
+        const postId = item.postID.toString();
+        if (item.mediaType === 1) {
+          // Video media type
           if (isViewable) {
-            videoRefs.current[key]?.playAsync();
+            setPlayingVideos((prev) => new Set(prev).add(postId));
+            setMutedVideos((prev) => {
+              const newSet = new Set(prev);
+              newSet.delete(postId);
+              return newSet;
+            });
+            videoRefs.current[postId]?.playAsync();
           } else {
-            videoRefs.current[key]?.pauseAsync();
+            setPlayingVideos((prev) => {
+              const newSet = new Set(prev);
+              newSet.delete(postId);
+              return newSet;
+            });
+            setMutedVideos((prev) => new Set(prev).add(postId));
+            videoRefs.current[postId]?.pauseAsync();
           }
         }
       });
@@ -47,32 +60,24 @@ const HomeScreen: React.FC = () => {
   );
 
   // Configuration for the viewability of items in the FlatList
-  const viewabilityConfig = {
-    itemVisiblePercentThreshold: 50,
-  };
+  const viewabilityConfig = { itemVisiblePercentThreshold: 50 };
 
   /**
    * Fetches posts from the API and updates the state.
    * @param shouldRefresh If true, replaces existing posts. If false, appends new posts.
    */
   const loadPosts = useCallback(async (shouldRefresh: boolean = false) => {
-    // Prevent multiple simultaneous calls to loadPosts
     if (isLoadingRef.current) return;
     isLoadingRef.current = true;
     setIsLoading(true);
 
     try {
-      console.log("Fetching posts...");
       const response = await fetchPosts();
-
-      // Update posts based on whether it's a refresh or append operation
       setPosts((prevPosts) =>
         shouldRefresh
           ? response.postInfos
           : [...prevPosts, ...response.postInfos]
       );
-
-      console.log("Posts loaded:", response.postInfos.length);
     } catch (error) {
       console.error("Error fetching posts:", error);
     } finally {
@@ -84,11 +89,11 @@ const HomeScreen: React.FC = () => {
   // Load initial posts when the component mounts
   useEffect(() => {
     loadPosts(true);
-  }, []);
+  }, [loadPosts]);
 
   /**
    * Handles the pull-to-refresh action.
-   * Resets the posts list and fetches fresh data.
+   * Resets posts list and fetches fresh data.
    */
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
@@ -97,11 +102,10 @@ const HomeScreen: React.FC = () => {
   }, [loadPosts]);
 
   /**
-   * Triggered when the user scrolls to the end of the list.
+   * Triggering when the user scrolls to the ending of the list.
    * Loads more posts if not currently loading.
    */
   const onEndReached = useCallback(() => {
-    console.log("onEndReached triggered");
     if (!isLoadingRef.current) {
       loadPosts();
     }
@@ -110,28 +114,41 @@ const HomeScreen: React.FC = () => {
   /**
    * Toggles the mute state for videos.
    */
-  const toggleMute = useCallback(() => {
-    setIsMuted((prev) => !prev);
+  const toggleMute = useCallback((postId: string | number, mute: boolean) => {
+    const id = postId.toString();
+    setMutedVideos((prev) => {
+      const newSet = new Set(prev);
+      mute ? newSet.add(id) : newSet.delete(id);
+      return newSet;
+    });
   }, []);
 
   /**
-   * Renders individual post items in the FlatList.
+   * Rendering each post item in FlatList.
    */
   const renderPost = useCallback(
-    ({ item }: { item: PostInfo }) => (
-      <PostItem
-        item={item}
-        isMuted={isMuted}
-        toggleMute={toggleMute}
-        videoRef={(ref) => (videoRefs.current[item.postID] = ref)}
-      />
-    ),
-    [isMuted, toggleMute]
+    ({ item }: { item: PostInfo }) => {
+      const postId = item.postID.toString();
+      return (
+        <PostItem
+          item={item}
+          isPlaying={playingVideos.has(postId)}
+          isMuted={mutedVideos.has(postId)}
+          toggleMute={toggleMute}
+          videoRef={(ref) => {
+            if (ref) {
+              videoRefs.current[postId] = ref;
+            }
+          }}
+        />
+      );
+    },
+    [playingVideos, mutedVideos, toggleMute]
   );
 
   return (
     <View style={styles.container}>
-      <Text style={{ marginHorizontal: 30 }}>Total posts: {posts.length}</Text>
+      {/* <Text style={{ padding: 8 }}>Total posts: {posts.length}</Text> */}
       <FlatList
         data={posts}
         ref={flatListRef}
@@ -140,7 +157,7 @@ const HomeScreen: React.FC = () => {
         onViewableItemsChanged={onViewableItemsChanged}
         viewabilityConfig={viewabilityConfig}
         onEndReached={onEndReached}
-        onEndReachedThreshold={0.1} // Trigger onEndReached when 10% of the list is left
+        onEndReachedThreshold={0.1}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }

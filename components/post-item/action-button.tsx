@@ -8,8 +8,12 @@ import {
   Spacing,
 } from "@/constants";
 import Gap from "../gap";
+import { PostInfo } from "@/types";
 
-const ActionButtons = () => {
+interface ActionButtonsProps {
+  item: PostInfo;
+}
+const ActionButtons: React.FC<ActionButtonsProps> = ({ item }) => {
   return (
     <View style={styles.container}>
       <View
@@ -23,7 +27,7 @@ const ActionButtons = () => {
               source={require("../../assets/images/arrow-big-up.png")}
               style={styles.icon}
             />
-            <Text style={styles.buttonText}>2</Text>
+            <Text style={styles.buttonText}>{item.totalUpvotes}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}>
             <Image
@@ -38,7 +42,7 @@ const ActionButtons = () => {
             source={require("../../assets/images/message-square-text.png")}
             style={styles.icon}
           />
-          <Text style={styles.buttonText}>1</Text>
+          <Text style={styles.buttonText}>{item.totalUpvotes}</Text>
         </TouchableOpacity>
       </View>
       <TouchableOpacity style={styles.buttonShare}>
