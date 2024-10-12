@@ -20,28 +20,34 @@ function HasJoinContent() {
   );
 }
 
+function TopicTabs() {
+  return (
+    <Tab.Navigator
+      screenOptions={{
+        tabBarStyle: {
+          backgroundColor: "#f0f0f0",
+          paddingTop: 50,
+        },
+        tabBarActiveTintColor: "#65a4ec",
+        tabBarInactiveTintColor: "#000000",
+        tabBarIndicatorStyle: {
+          backgroundColor: "#65a4ec",
+        },
+      }}
+    >
+      <Tab.Screen name="Topik" component={TopicContent} />
+      <Tab.Screen name="Sudah Gabung" component={HasJoinContent} />
+    </Tab.Navigator>
+  );
+}
+
 export default function TopicScreen() {
   const colorScheme = useColorScheme();
   const isDarkMode = colorScheme === "dark";
 
   return (
     <View style={styles.container}>
-      <Tab.Navigator
-        screenOptions={{
-          tabBarStyle: {
-            backgroundColor: "#f0f0f0",
-            paddingTop: 50,
-          },
-          tabBarActiveTintColor: "#65a4ec",
-          tabBarInactiveTintColor: "#000000",
-          tabBarIndicatorStyle: {
-            backgroundColor: "#65a4ec",
-          },
-        }}
-      >
-        <Tab.Screen name="Topik" component={TopicContent} />
-        <Tab.Screen name="Sudah Gabung" component={HasJoinContent} />
-      </Tab.Navigator>
+      <TopicTabs />
     </View>
   );
 }
@@ -49,7 +55,6 @@ export default function TopicScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
     backgroundColor: "#25292e",
   },
   tabContent: {

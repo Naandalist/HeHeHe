@@ -2,6 +2,7 @@ import { Tabs } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Pressable, Alert } from "react-native";
 import { useActionSheet } from "@expo/react-native-action-sheet";
+import { Colors } from "@/constants";
 
 export default function TabLayout() {
   const { showActionSheetWithOptions } = useActionSheet();
@@ -68,7 +69,7 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: "#65a4ec",
+        tabBarActiveTintColor: Colors.PRIMARY,
         tabBarShowLabel: false,
       }}
     >
@@ -111,7 +112,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="notif"
+        name="notification"
         options={{
           title: "Notification",
           headerShown: false,
@@ -141,7 +142,6 @@ export default function TabLayout() {
         }}
         listeners={{
           tabPress: (e) => {
-            console.log("hahahuhu");
             e.preventDefault();
           },
         }}

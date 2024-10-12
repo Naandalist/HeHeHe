@@ -1,0 +1,99 @@
+{
+  "status": "200",
+  "message": "success",
+  "data": [
+    {
+      "postID": "0",
+      "title": "Kucing ini adalah Kira yang sebenarnya 😼",
+      "totalUpvotes": 100,
+      "totalComments": 15,
+      "createTime": "1 hari",
+      "mediaWidth": 1080,
+      "mediaHeight": 1350,
+      "media": "https://cache.lahelu.com/image-P0uBB3gT8-88697",
+      "mediaType": 0,
+      "hashtags": [
+        "kira",
+        "deathnote",
+        "anime",
+        "japan",
+        "wibu",
+        "cat",
+        "evil",
+        "waiting"
+      ],
+      "userUsername": "Lawliet",
+      "userAvatar": "https://avatar.iran.liara.run/public/girl"
+    },
+    {
+      "postID": "4",
+      "title": "Vertical video test",
+      "totalUpvotes": 180,
+      "totalComments": 20,
+      "createTime": 1697025600000,
+      "mediaWidth": 1440,
+      "mediaHeight": 2560,
+      "media": "https://cache.lahelu.com/video-PkYz2NauW-95748",
+      "mediaType": 1,
+      "hashtags": ["vertical", "video", "test"],
+      "userUsername": "video_tester",
+      "userAvatar": "https://avatar.iran.liara.run/public/girl"
+    },
+    {
+      "postID": "1",
+      "title": "Greget ga lu pada",
+      "totalUpvotes": 100,
+      "totalComments": 15,
+      "createTime": "1 hari",
+      "mediaWidth": 1080,
+      "mediaHeight": 1350,
+      "media": "https://cache.lahelu.com/image-P9O4TpFi1-50472",
+      "mediaType": 0,
+      "hashtags": ["maddog", "bang yayan", "diem"],
+      "userUsername": "nature_lover",
+      "userAvatar": "https://avatar.iran.liara.run/public/girl"
+    },
+    {
+      "postID": "2",
+      "title": "Cute puppy playing",
+      "totalUpvotes": 200,
+      "totalComments": 30,
+      "createTime": 1697032800000,
+      "mediaWidth": 1920,
+      "mediaHeight": 1080,
+      "media": "https://cache.lahelu.com/video-Ptx5p6hDc-49129",
+      "mediaType": 1,
+      "hashtags": ["puppy", "cute", "animals"],
+      "userUsername": "pet_videos",
+      "userAvatar": "https://avatar.iran.liara.run/public/boy"
+    },
+    {
+      "postID": "5",
+      "title": "Gasak aja buk Hehehe",
+      "totalUpvotes": 220,
+      "totalComments": 35,
+      "createTime": 1697022000000,
+      "mediaWidth": 1920,
+      "mediaHeight": 1080,
+      "media": "https://cache.lahelu.com/image-P6cYfAYBl-44500",
+      "mediaType": 0,
+      "hashtags": ["mother", "ibuibu", "war"],
+      "userUsername": "pembawa_onar",
+      "userAvatar": "https://avatar.iran.liara.run/public/boy"
+    },
+    {
+      "postID": "3",
+      "title": "Another cute puppy",
+      "totalUpvotes": 150,
+      "totalComments": 25,
+      "createTime": 1697029200000,
+      "mediaWidth": 1920,
+      "mediaHeight": 1080,
+      "media": "https://cache.lahelu.com/video-PJoJ2d82M-16959",
+      "mediaType": 1,
+      "hashtags": ["puppy", "cute", "playful"],
+      "userUsername": "pet_lover",
+      "userAvatar": "https://avatar.iran.liara.run/public/boy"
+    }
+  ]
+}
