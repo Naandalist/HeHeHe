@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -13,6 +13,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { PostInfo } from "@/types";
 import { styles } from "./styles";
 import ActionButtons from "./action-button";
+import Slider from "@react-native-community/slider";
+import { Colors } from "@/constants";
 
 interface PostItemProps {
   item: PostInfo;
@@ -43,6 +45,9 @@ export const PostItem: React.FC<PostItemProps> = ({
   const containerHeight = (screenWidth / 4) * 3;
 
   const localVideoRef = useRef<Video | null>(null);
+  const [duration, setDuration] = useState(0);
+  const [position, setPosition] = useState(0);
+  const [isSeeking, setIsSeeking] = useState(false);
 
   useEffect(() => {
     if (localVideoRef.current) {
@@ -53,6 +58,31 @@ export const PostItem: React.FC<PostItemProps> = ({
       }
     }
   }, [isPlaying]);
+
+  const handlePlaybackStatusUpdate = (status: AVPlaybackStatus) => {
+    if (status.isLoaded) {
+      if (!isSeeking) {
+        setDuration(status.durationMillis || 0);
+        setPosition(status.positionMillis || 0);
+      }
+    }
+    onPlaybackStatusUpdate(status);
+  };
+
+  const handleSliderSlidingStart = () => {
+    setIsSeeking(true);
+  };
+
+  const handleSliderSlidingComplete = async (value: number) => {
+    if (localVideoRef.current) {
+      await localVideoRef.current.setPositionAsync(value);
+      setPosition(value);
+      setIsSeeking(false);
+      if (isPlaying) {
+        localVideoRef.current.playAsync();
+      }
+    }
+  };
 
   const renderMedia = () => {
     if (item.mediaType === 0) {
@@ -80,16 +110,24 @@ export const PostItem: React.FC<PostItemProps> = ({
             isMuted={isMuted}
             useNativeControls={false}
             shouldPlay={isPlaying}
-            onPlaybackStatusUpdate={onPlaybackStatusUpdate}
+            onPlaybackStatusUpdate={handlePlaybackStatusUpdate}
           />
           <TouchableOpacity
             onPress={() => togglePlay(item.postID.toString())}
             style={[styles.playButton, localStyles.playButtonOverlay]}
-          >
-            {!isPlaying && (
+          ></TouchableOpacity>
+          {!isPlaying && (
+            <TouchableOpacity
+              style={localStyles.playButtonOverlay}
+              onPress={() => {
+                // toggleMute(item.postID.toString(), !isMuted);
+                togglePlay(item.postID.toString());
+              }}
+            >
               <Ionicons name="play-circle" size={52} color="white" />
-            )}
-          </TouchableOpacity>
+            </TouchableOpacity>
+          )}
+          {/* )} */}
           <TouchableOpacity
             style={styles.muteButton}
             onPress={() => toggleMute(item.postID.toString(), !isMuted)}
@@ -100,6 +138,19 @@ export const PostItem: React.FC<PostItemProps> = ({
               color="white"
             />
           </TouchableOpacity>
+          <View style={localStyles.sliderContainer}>
+            <Slider
+              style={localStyles.slider}
+              minimumValue={0}
+              maximumValue={duration}
+              value={position}
+              onSlidingStart={handleSliderSlidingStart}
+              onSlidingComplete={handleSliderSlidingComplete}
+              minimumTrackTintColor={Colors.PRIMARY}
+              maximumTrackTintColor={Colors.FILL_3}
+              thumbTintColor="transparent"
+            />
+          </View>
         </View>
       );
     }
@@ -148,9 +199,24 @@ export const PostItem: React.FC<PostItemProps> = ({
 
 const localStyles = StyleSheet.create({
   playButtonOverlay: {
-    ...StyleSheet.absoluteFillObject,
+    // ...StyleSheet.absoluteFillObject,
     justifyContent: "center",
     alignItems: "center",
-    zIndex: 1,
+    zIndex: 5,
+    position: "absolute",
+  },
+  sliderContainer: {
+    position: "absolute",
+    bottom: -15,
+    left: 0,
+    right: 0,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    zIndex: 2,
+    marginLeft: -15,
+    paddingRight: 12,
+    paddingVertical: 8,
+  },
+  slider: {
+    width: "110%",
   },
 });

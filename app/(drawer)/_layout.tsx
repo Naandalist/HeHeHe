@@ -13,6 +13,7 @@ export default function DrawerLayout() {
       <Drawer
         drawerContent={(props) => <CustomDrawerContent {...props} />}
         screenOptions={{
+          swipeEnabled: false,
           header: ({ navigation }) => (
             <View style={styles.header}>
               <View style={styles.leftGroup}>

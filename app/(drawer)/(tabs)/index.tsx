@@ -26,6 +26,7 @@ export default function Index() {
     <View style={styles.container}>
       <Tab.Navigator
         screenOptions={{
+          swipeEnabled: false,
           tabBarStyle: {
             backgroundColor: Colors.PLAIN,
             borderTopWidth: 1,

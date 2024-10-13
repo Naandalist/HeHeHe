@@ -1,12 +1,22 @@
-import React, { useState, useRef } from "react";
-import { View, StyleSheet, Button, Pressable } from "react-native";
+import React, { useState, useRef, useEffect } from "react";
+import { View, StyleSheet, Pressable, Text } from "react-native";
 import { Video, ResizeMode, AVPlaybackStatus } from "expo-av";
+import Slider from "@react-native-community/slider";
 
-export default function FreshScreen() {
+export default function CustomVideoPlayer() {
   const video = useRef<Video>(null);
   const [status, setStatus] = useState<AVPlaybackStatus>(
     {} as AVPlaybackStatus
   );
+  const [sliderValue, setSliderValue] = useState(0);
+  const [duration, setDuration] = useState(0);
+
+  useEffect(() => {
+    if (status.isLoaded) {
+      setDuration(status.durationMillis ?? 0);
+      setSliderValue(status.positionMillis ?? 0);
+    }
+  }, [status]);
 
   const handleVideoPress = () => {
     if (!video.current) return;
@@ -17,7 +27,11 @@ export default function FreshScreen() {
     }
   };
 
-  const isPlaying = status.isLoaded && status.isPlaying;
+  const handleSliderValueChange = (value: number) => {
+    if (status.isLoaded) {
+      video.current?.setPositionAsync(value);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -26,18 +40,21 @@ export default function FreshScreen() {
           ref={video}
           style={styles.video}
           source={{
-            uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
+            uri: "https://cache.lahelu.com/video-PDGkHW3r4-98257",
           }}
-          useNativeControls={false}
           resizeMode={ResizeMode.CONTAIN}
           isLooping
           onPlaybackStatusUpdate={setStatus}
         />
       </Pressable>
-      <View style={styles.buttons}>
-        <Button
-          title={isPlaying ? "Pause" : "Play"}
-          onPress={handleVideoPress}
+      <View style={styles.controls}>
+        <Slider
+          style={styles.slider}
+          minimumValue={0}
+          maximumValue={duration}
+          value={sliderValue}
+          onValueChange={handleSliderValueChange}
+          thumbTintColor="transparent"
         />
       </View>
     </View>
@@ -53,11 +70,16 @@ const styles = StyleSheet.create({
   video: {
     alignSelf: "center",
     width: 320,
-    height: 200,
+    height: 500,
   },
-  buttons: {
+  controls: {
     flexDirection: "row",
-    justifyContent: "center",
     alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 10,
+  },
+  slider: {
+    flex: 1,
+    marginHorizontal: 10,
   },
 });

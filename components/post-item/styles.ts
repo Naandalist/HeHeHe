@@ -83,13 +83,13 @@ export const styles = StyleSheet.create({
   },
   muteButton: {
     position: "absolute",
-    bottom: Spacing.SPACE_S,
+    bottom: 20,
     right: Spacing.SPACE_S,
     // backgroundColor: Colors.SEMI_TRANSPARENT_BLACK,
     backgroundColor: "rgba(52, 152, 219,1.0)",
     borderRadius: BorderRadius.XXL,
     padding: Spacing.SPACE_2XS,
-    zIndex: 1,
+    zIndex: 5,
   },
   playButton: {
     position: "absolute",

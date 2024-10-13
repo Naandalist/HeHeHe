@@ -127,8 +127,6 @@ const HomeScreen: React.FC = () => {
           }}
           toggleMute={toggleMute}
           onPlaybackStatusUpdate={(status) => {
-            // Handle playback status updates if needed
-            // For example, you might want to update the playing state when a video ends
             if (status.isLoaded && !status.isPlaying) {
               setPlayingVideos((prev) => {
                 const newSet = new Set(prev);
