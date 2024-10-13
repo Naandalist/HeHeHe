@@ -5,6 +5,7 @@ import {
   RefreshControl,
   ActivityIndicator,
   Text,
+  ListRenderItemInfo,
 } from "react-native";
 import { Video } from "expo-av";
 import { styles } from "./styles";
@@ -21,17 +22,17 @@ const HomeScreen: React.FC = () => {
   const [playingVideos, setPlayingVideos] = useState<Set<string>>(new Set());
   const [mutedVideos, setMutedVideos] = useState<Set<string>>(new Set());
 
-  // Ref
-  const flatListRef = useRef<FlatList>(null);
+  // Refs
+  const flatListRef = useRef<FlatList<PostInfo>>(null);
   const videoRefs = useRef<{ [key: string]: Video | null }>({});
   const isLoadingRef = useRef<boolean>(false);
 
-  /**
-   * Handling visibility changes of items in the FlatList.
-   * Plays videos when they become visible in viewport and pauses when not visible
-   */
   const onViewableItemsChanged = useCallback(
-    ({ changed }: { changed: any[] }) => {
+    ({
+      changed,
+    }: {
+      changed: Array<{ item: PostInfo; isViewable: boolean }>;
+    }) => {
       changed.forEach(({ item, isViewable }) => {
         const postId = item.postID.toString();
         if (item.mediaType === 1) {
@@ -50,7 +51,6 @@ const HomeScreen: React.FC = () => {
               newSet.delete(postId);
               return newSet;
             });
-            setMutedVideos((prev) => new Set(prev).add(postId));
             videoRefs.current[postId]?.pauseAsync();
           }
         }
@@ -59,13 +59,8 @@ const HomeScreen: React.FC = () => {
     []
   );
 
-  // Configuration for the viewability of items in the FlatList
   const viewabilityConfig = { itemVisiblePercentThreshold: 50 };
 
-  /**
-   * Fetches posts from the API and updates the state.
-   * @param shouldRefresh If true, replaces existing posts. If false, appends new posts.
-   */
   const loadPosts = useCallback(async (shouldRefresh: boolean = false) => {
     if (isLoadingRef.current) return;
     isLoadingRef.current = true;
@@ -86,34 +81,22 @@ const HomeScreen: React.FC = () => {
     }
   }, []);
 
-  // Load initial posts when the component mounts
   useEffect(() => {
     loadPosts(true);
   }, [loadPosts]);
 
-  /**
-   * Handles the pull-to-refresh action.
-   * Resets posts list and fetches fresh data.
-   */
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
     await loadPosts(true);
     setRefreshing(false);
   }, [loadPosts]);
 
-  /**
-   * Triggering when the user scrolls to the ending of the list.
-   * Loads more posts if not currently loading.
-   */
   const onEndReached = useCallback(() => {
     if (!isLoadingRef.current) {
       loadPosts();
     }
   }, [loadPosts]);
 
-  /**
-   * Toggles the mute state for videos.
-   */
   const toggleMute = useCallback((postId: string | number, mute: boolean) => {
     const id = postId.toString();
     setMutedVideos((prev) => {
@@ -123,18 +106,37 @@ const HomeScreen: React.FC = () => {
     });
   }, []);
 
-  /**
-   * Rendering each post item in FlatList.
-   */
   const renderPost = useCallback(
-    ({ item }: { item: PostInfo }) => {
+    ({ item }: ListRenderItemInfo<PostInfo>) => {
       const postId = item.postID.toString();
       return (
         <PostItem
           item={item}
           isPlaying={playingVideos.has(postId)}
           isMuted={mutedVideos.has(postId)}
+          togglePlay={(id) => {
+            setPlayingVideos((prev) => {
+              const newSet = new Set(prev);
+              if (newSet.has(id)) {
+                newSet.delete(id);
+              } else {
+                newSet.add(id);
+              }
+              return newSet;
+            });
+          }}
           toggleMute={toggleMute}
+          onPlaybackStatusUpdate={(status) => {
+            // Handle playback status updates if needed
+            // For example, you might want to update the playing state when a video ends
+            if (status.isLoaded && !status.isPlaying) {
+              setPlayingVideos((prev) => {
+                const newSet = new Set(prev);
+                newSet.delete(postId);
+                return newSet;
+              });
+            }
+          }}
           videoRef={(ref) => {
             if (ref) {
               videoRefs.current[postId] = ref;
@@ -148,7 +150,6 @@ const HomeScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      {/* <Text style={{ padding: 8 }}>Total posts: {posts.length}</Text> */}
       <FlatList
         data={posts}
         ref={flatListRef}

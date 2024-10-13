@@ -5,9 +5,10 @@ import {
   TouchableOpacity,
   Dimensions,
   ScrollView,
+  StyleSheet,
 } from "react-native";
 import { Image } from "expo-image";
-import { Video, ResizeMode } from "expo-av";
+import { Video, ResizeMode, AVPlaybackStatus } from "expo-av";
 import { Ionicons } from "@expo/vector-icons";
 import { PostInfo } from "@/types";
 import { styles } from "./styles";
@@ -17,7 +18,9 @@ interface PostItemProps {
   item: PostInfo;
   isPlaying: boolean;
   isMuted: boolean;
+  togglePlay: (postId: string) => void;
   toggleMute: (postId: string, mute: boolean) => void;
+  onPlaybackStatusUpdate: (status: AVPlaybackStatus) => void;
   videoRef: (ref: Video | null) => void;
 }
 
@@ -31,37 +34,28 @@ export const PostItem: React.FC<PostItemProps> = ({
   item,
   isPlaying,
   isMuted,
+  togglePlay,
   toggleMute,
+  onPlaybackStatusUpdate,
   videoRef,
 }) => {
-  // Calculate media container dimensions for 4:3 aspect ratio
   const containerWidth = screenWidth;
   const containerHeight = (screenWidth / 4) * 3;
 
-  const localVideoRef = useRef<Video>(null);
+  const localVideoRef = useRef<Video | null>(null);
 
-  // Pass the video ref to the parent component
   useEffect(() => {
     if (localVideoRef.current) {
-      videoRef(localVideoRef.current);
-    }
-  }, [videoRef]);
-
-  // Control video playback based on isPlaying prop
-  useEffect(() => {
-    if (localVideoRef.current) {
-      isPlaying
-        ? localVideoRef.current.playAsync()
-        : localVideoRef.current.pauseAsync();
+      if (isPlaying) {
+        localVideoRef.current.playAsync();
+      } else {
+        localVideoRef.current.pauseAsync();
+      }
     }
   }, [isPlaying]);
 
-  /**
-   * Renders the media content (image or video) based on the mediaType
-   */
   const renderMedia = () => {
     if (item.mediaType === 0) {
-      // Image
       return (
         <Image
           source={{ uri: item.media }}
@@ -72,11 +66,13 @@ export const PostItem: React.FC<PostItemProps> = ({
         />
       );
     } else {
-      // Video
       return (
         <View style={styles.videoWrapper}>
           <Video
-            ref={localVideoRef}
+            ref={(ref) => {
+              localVideoRef.current = ref;
+              videoRef(ref);
+            }}
             source={{ uri: item.media }}
             style={styles.media}
             resizeMode={ResizeMode.CONTAIN}
@@ -84,7 +80,16 @@ export const PostItem: React.FC<PostItemProps> = ({
             isMuted={isMuted}
             useNativeControls={false}
             shouldPlay={isPlaying}
+            onPlaybackStatusUpdate={onPlaybackStatusUpdate}
           />
+          <TouchableOpacity
+            onPress={() => togglePlay(item.postID.toString())}
+            style={[styles.playButton, localStyles.playButtonOverlay]}
+          >
+            {!isPlaying && (
+              <Ionicons name="play-circle" size={52} color="white" />
+            )}
+          </TouchableOpacity>
           <TouchableOpacity
             style={styles.muteButton}
             onPress={() => toggleMute(item.postID.toString(), !isMuted)}
@@ -100,9 +105,6 @@ export const PostItem: React.FC<PostItemProps> = ({
     }
   };
 
-  /**
-   * Renders the hashtags as horizontal scrollable buttons
-   */
   const renderHashtags = () => (
     <ScrollView
       horizontal={true}
@@ -143,3 +145,12 @@ export const PostItem: React.FC<PostItemProps> = ({
     </View>
   );
 };
+
+const localStyles = StyleSheet.create({
+  playButtonOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 1,
+  },
+});

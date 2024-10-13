@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 import {
   BorderRadius,
   Colors,
@@ -6,6 +6,7 @@ import {
   FontWeight,
   Spacing,
 } from "@/constants";
+const { width: screenWidth } = Dimensions.get("window");
 
 export const styles = StyleSheet.create({
   post: {
@@ -84,13 +85,18 @@ export const styles = StyleSheet.create({
     position: "absolute",
     bottom: Spacing.SPACE_S,
     right: Spacing.SPACE_S,
-    backgroundColor: Colors.SEMI_TRANSPARENT_BLACK,
+    // backgroundColor: Colors.SEMI_TRANSPARENT_BLACK,
+    backgroundColor: "rgba(52, 152, 219,1.0)",
     borderRadius: BorderRadius.XXL,
     padding: Spacing.SPACE_2XS,
+    zIndex: 1,
   },
   playButton: {
     position: "absolute",
-    backgroundColor: Colors.SEMI_TRANSPARENT_BLACK,
-    borderRadius: BorderRadius.XXL,
+    // backgroundColor: Colors.SEMI_TRANSPARENT_BLACK,
+    // borderRadius: BorderRadius.XXL,
+    // backgroundColor: "rgba(241, 196, 15,0.3)",
+    paddingHorizontal: screenWidth / 2,
+    paddingVertical: "31%",
   },
 });
