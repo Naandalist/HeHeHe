@@ -1,20 +1,13 @@
-import React, { useRef, useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Dimensions,
-  ScrollView,
-  StyleSheet,
-} from "react-native";
-import { Image } from "expo-image";
-import { Video, ResizeMode, AVPlaybackStatus } from "expo-av";
-import { Ionicons } from "@expo/vector-icons";
-import { PostInfo } from "@/types";
-import { styles } from "./styles";
-import ActionButtons from "./action-button";
-import Slider from "@react-native-community/slider";
-import { Colors } from "@/constants";
+import React, { useRef, useEffect, useState } from 'react';
+import { View, Text, TouchableOpacity, Dimensions, ScrollView, StyleSheet } from 'react-native';
+import { Image } from 'expo-image';
+import { Video, ResizeMode, AVPlaybackStatus } from 'expo-av';
+import { Ionicons } from '@expo/vector-icons';
+import { PostInfo } from '@/types';
+import { styles } from './styles';
+import ActionButtons from './action-button';
+import Slider from '@react-native-community/slider';
+import { Colors } from '@/constants';
 
 interface PostItemProps {
   item: PostInfo;
@@ -26,11 +19,11 @@ interface PostItemProps {
   videoRef: (ref: Video | null) => void;
 }
 
-const { width: screenWidth } = Dimensions.get("window");
+const { width: screenWidth } = Dimensions.get('window');
 
 // Blurhash placeholder for images
 const blurhash =
-  "|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[";
+  '|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[';
 
 export const PostItem: React.FC<PostItemProps> = ({
   item,
@@ -132,11 +125,7 @@ export const PostItem: React.FC<PostItemProps> = ({
             style={styles.muteButton}
             onPress={() => toggleMute(item.postID.toString(), !isMuted)}
           >
-            <Ionicons
-              name={isMuted ? "volume-mute" : "volume-medium"}
-              size={24}
-              color="white"
-            />
+            <Ionicons name={isMuted ? 'volume-mute' : 'volume-medium'} size={24} color="white" />
           </TouchableOpacity>
           <View style={localStyles.sliderContainer}>
             <Slider
@@ -181,12 +170,7 @@ export const PostItem: React.FC<PostItemProps> = ({
         <Text style={styles.date}>{item.createTime}</Text>
       </View>
       <Text style={styles.title}>{item.title}</Text>
-      <View
-        style={[
-          styles.mediaContainer,
-          { width: containerWidth, height: containerHeight },
-        ]}
-      >
+      <View style={[styles.mediaContainer, { width: containerWidth, height: containerHeight }]}>
         {renderMedia()}
       </View>
       <View style={styles.postFooter}>
@@ -200,23 +184,23 @@ export const PostItem: React.FC<PostItemProps> = ({
 const localStyles = StyleSheet.create({
   playButtonOverlay: {
     // ...StyleSheet.absoluteFillObject,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     zIndex: 5,
-    position: "absolute",
+    position: 'absolute',
   },
   sliderContainer: {
-    position: "absolute",
+    position: 'absolute',
     bottom: -15,
     left: 0,
     right: 0,
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     zIndex: 2,
     marginLeft: -15,
     paddingRight: 12,
     paddingVertical: 8,
   },
   slider: {
-    width: "110%",
+    width: '110%',
   },
 });

@@ -1,11 +1,8 @@
-import React from "react";
-import { View, Text, StyleSheet, Pressable } from "react-native";
-import {
-  DrawerContentScrollView,
-  DrawerContentComponentProps,
-} from "@react-navigation/drawer";
-import { Ionicons } from "@expo/vector-icons";
-import { usePathname, useRouter, Href } from "expo-router";
+import React from 'react';
+import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { DrawerContentScrollView, DrawerContentComponentProps } from '@react-navigation/drawer';
+import { Ionicons } from '@expo/vector-icons';
+import { usePathname, useRouter, Href } from 'expo-router';
 
 interface MenuItem {
   label: string;
@@ -24,75 +21,75 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = (props) => {
 
   const sections: Section[] = [
     {
-      title: "",
+      title: '',
       items: [
-        { label: "Home", icon: "home-outline", route: "/" as Href<string> },
+        { label: 'Home', icon: 'home-outline', route: '/' as Href<string> },
         {
-          label: "Fresh",
-          icon: "time-outline",
-          route: "/fresh" as Href<string>,
+          label: 'Fresh',
+          icon: 'time-outline',
+          route: '/fresh' as Href<string>,
         },
         {
-          label: "Trending",
-          icon: "trending-up-outline",
-          route: "/trending" as Href<string>,
+          label: 'Trending',
+          icon: 'trending-up-outline',
+          route: '/trending' as Href<string>,
         },
         {
-          label: "Topic",
-          icon: "people-outline",
-          route: "/topic" as Href<string>,
+          label: 'Topic',
+          icon: 'people-outline',
+          route: '/topic' as Href<string>,
         },
       ],
     },
     {
-      title: "Meme lain",
+      title: 'Meme lain',
       items: [
         {
-          label: "Peringkat",
-          icon: "trophy-outline",
-          route: "/ranking" as Href<string>,
+          label: 'Peringkat',
+          icon: 'trophy-outline',
+          route: '/ranking' as Href<string>,
         },
         {
-          label: "Tersimpan",
-          icon: "bookmark-outline",
-          route: "/saved" as Href<string>,
+          label: 'Tersimpan',
+          icon: 'bookmark-outline',
+          route: '/saved' as Href<string>,
         },
         {
-          label: "Acak",
-          icon: "shuffle-outline",
-          route: "/random" as Href<string>,
+          label: 'Acak',
+          icon: 'shuffle-outline',
+          route: '/random' as Href<string>,
         },
       ],
     },
     {
-      title: "Jelajah",
+      title: 'Jelajah',
       items: [
         {
-          label: "Donatur",
-          icon: "heart-outline",
-          route: "/donatur" as Href<string>,
+          label: 'Donatur',
+          icon: 'heart-outline',
+          route: '/donatur' as Href<string>,
         },
         {
-          label: "Medali",
-          icon: "medal-outline",
-          route: "/medali" as Href<string>,
+          label: 'Medali',
+          icon: 'medal-outline',
+          route: '/medali' as Href<string>,
         },
         {
-          label: "Toko koin",
-          icon: "cash-outline",
-          route: "/toko-koin" as Href<string>,
+          label: 'Toko koin',
+          icon: 'cash-outline',
+          route: '/toko-koin' as Href<string>,
         },
         {
-          label: "Discord",
-          icon: "logo-discord",
-          route: "/discord" as Href<string>,
+          label: 'Discord',
+          icon: 'logo-discord',
+          route: '/discord' as Href<string>,
         },
       ],
     },
   ];
 
   const isActive = (route: Href<string>) => {
-    if (route === "/" && pathname === "(tabs)") return true;
+    if (route === '/' && pathname === '(tabs)') return true;
     return pathname === route;
   };
 
@@ -112,14 +109,8 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = (props) => {
             style={[styles.menuItem, active && styles.activeMenuItem]}
             onPress={() => handleNavigation(item.route)}
           >
-            <Ionicons
-              name={item.icon}
-              size={24}
-              color={active ? "#4285F4" : "black"}
-            />
-            <Text
-              style={[styles.menuItemText, active && styles.activeMenuItemText]}
-            >
+            <Ionicons name={item.icon} size={24} color={active ? '#4285F4' : 'black'} />
+            <Text style={[styles.menuItemText, active && styles.activeMenuItemText]}>
               {item.label}
             </Text>
           </Pressable>
@@ -129,9 +120,7 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = (props) => {
   );
 
   return (
-    <DrawerContentScrollView {...props}>
-      {sections.map(renderSection)}
-    </DrawerContentScrollView>
+    <DrawerContentScrollView {...props}>{sections.map(renderSection)}</DrawerContentScrollView>
   );
 };
 
@@ -141,26 +130,26 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 16,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginLeft: 15,
     marginBottom: 10,
   },
   menuItem: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     paddingVertical: 10,
     paddingHorizontal: 15,
   },
   activeMenuItem: {
-    backgroundColor: "#E8F0FE",
+    backgroundColor: '#E8F0FE',
   },
   menuItemText: {
     marginLeft: 15,
     fontSize: 16,
   },
   activeMenuItemText: {
-    color: "#4285F4",
-    fontWeight: "bold",
+    color: '#4285F4',
+    fontWeight: 'bold',
   },
 });
 

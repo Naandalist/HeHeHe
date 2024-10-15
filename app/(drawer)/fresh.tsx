@@ -1,13 +1,11 @@
-import React, { useState, useRef, useEffect } from "react";
-import { View, StyleSheet, Pressable, Text } from "react-native";
-import { Video, ResizeMode, AVPlaybackStatus } from "expo-av";
-import Slider from "@react-native-community/slider";
+import React, { useState, useRef, useEffect } from 'react';
+import { View, StyleSheet, Pressable, Text } from 'react-native';
+import { Video, ResizeMode, AVPlaybackStatus } from 'expo-av';
+import Slider from '@react-native-community/slider';
 
 export default function CustomVideoPlayer() {
   const video = useRef<Video>(null);
-  const [status, setStatus] = useState<AVPlaybackStatus>(
-    {} as AVPlaybackStatus
-  );
+  const [status, setStatus] = useState<AVPlaybackStatus>({} as AVPlaybackStatus);
   const [sliderValue, setSliderValue] = useState(0);
   const [duration, setDuration] = useState(0);
 
@@ -40,7 +38,7 @@ export default function CustomVideoPlayer() {
           ref={video}
           style={styles.video}
           source={{
-            uri: "https://cache.lahelu.com/video-PDGkHW3r4-98257",
+            uri: 'https://cache.lahelu.com/video-PDGkHW3r4-98257',
           }}
           resizeMode={ResizeMode.CONTAIN}
           isLooping
@@ -64,18 +62,18 @@ export default function CustomVideoPlayer() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    backgroundColor: "#ecf0f1",
+    justifyContent: 'center',
+    backgroundColor: '#ecf0f1',
   },
   video: {
-    alignSelf: "center",
+    alignSelf: 'center',
     width: 320,
     height: 500,
   },
   controls: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     paddingHorizontal: 10,
   },
   slider: {

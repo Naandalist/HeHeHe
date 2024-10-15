@@ -1,10 +1,10 @@
-import React from "react";
-import { Drawer } from "expo-router/drawer";
-import { View, Text, Pressable, StyleSheet, Image } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import { Colors, Spacing } from "@/constants";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import CustomDrawerContent from "@/components/drawer-content";
+import React from 'react';
+import { Drawer } from 'expo-router/drawer';
+import { View, Text, Pressable, StyleSheet, Image } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { Colors, Spacing } from '@/constants';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import CustomDrawerContent from '@/components/drawer-content';
 // import Gap from "@/components/gap";
 
 export default function DrawerLayout() {
@@ -22,7 +22,7 @@ export default function DrawerLayout() {
                 </Pressable>
                 {/* <Gap width={20} /> */}
                 <Image
-                  source={require("../../assets/images/LAHELU.png")}
+                  source={require('../../assets/images/LAHELU.png')}
                   style={{ height: 20, width: 100 }}
                 />
               </View>
@@ -33,13 +33,13 @@ export default function DrawerLayout() {
           ),
         }}
       >
-        <Drawer.Screen name="(tabs)" options={{ drawerLabel: "Home" }} />
-        <Drawer.Screen name="fresh" options={{ drawerLabel: "Fresh" }} />
-        <Drawer.Screen name="trending" options={{ drawerLabel: "Trending" }} />
-        <Drawer.Screen name="topic" options={{ drawerLabel: "Topic" }} />
-        <Drawer.Screen name="ranking" options={{ drawerLabel: "Peringkat" }} />
-        <Drawer.Screen name="saved" options={{ drawerLabel: "Tersimpan" }} />
-        <Drawer.Screen name="random" options={{ drawerLabel: "Acak" }} />
+        <Drawer.Screen name="(tabs)" options={{ drawerLabel: 'Home' }} />
+        <Drawer.Screen name="fresh" options={{ drawerLabel: 'Fresh' }} />
+        <Drawer.Screen name="trending" options={{ drawerLabel: 'Trending' }} />
+        <Drawer.Screen name="topic" options={{ drawerLabel: 'Topic' }} />
+        <Drawer.Screen name="ranking" options={{ drawerLabel: 'Peringkat' }} />
+        <Drawer.Screen name="saved" options={{ drawerLabel: 'Tersimpan' }} />
+        <Drawer.Screen name="random" options={{ drawerLabel: 'Acak' }} />
       </Drawer>
     </GestureHandlerRootView>
   );
@@ -47,17 +47,17 @@ export default function DrawerLayout() {
 
 const styles = StyleSheet.create({
   header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     paddingHorizontal: 16,
     paddingTop: 50,
     paddingBottom: Spacing.SPACE_M,
     backgroundColor: Colors.PLAIN,
   },
   leftGroup: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

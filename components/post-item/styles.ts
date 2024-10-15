@@ -1,12 +1,6 @@
-import { StyleSheet, Dimensions } from "react-native";
-import {
-  BorderRadius,
-  Colors,
-  FontSizes,
-  FontWeight,
-  Spacing,
-} from "@/constants";
-const { width: screenWidth } = Dimensions.get("window");
+import { StyleSheet, Dimensions } from 'react-native';
+import { BorderRadius, Colors, FontSizes, FontWeight, Spacing } from '@/constants';
+const { width: screenWidth } = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
   post: {
@@ -14,8 +8,8 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.WHITE,
   },
   postHeader: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     padding: Spacing.SPACE_S,
   },
   avatar: {
@@ -24,7 +18,7 @@ export const styles = StyleSheet.create({
     marginRight: Spacing.SPACE_S,
   },
   username: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginRight: Spacing.SPACE_S,
     fontSize: FontSizes.S,
     color: Colors.FILL_1,
@@ -36,23 +30,23 @@ export const styles = StyleSheet.create({
   title: {
     marginHorizontal: 16,
     marginBottom: 10,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontSize: 16,
   },
   mediaContainer: {
     backgroundColor: Colors.FILL_6,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   videoWrapper: {
-    width: "100%",
-    height: "100%",
-    justifyContent: "center",
-    alignItems: "center",
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   media: {
     flex: 1,
-    width: "100%",
+    width: '100%',
   },
   postFooter: {
     padding: Spacing.SPACE_XS,
@@ -82,21 +76,21 @@ export const styles = StyleSheet.create({
     fontWeight: FontWeight.MEDIUM,
   },
   muteButton: {
-    position: "absolute",
+    position: 'absolute',
     bottom: 20,
     right: Spacing.SPACE_S,
     // backgroundColor: Colors.SEMI_TRANSPARENT_BLACK,
-    backgroundColor: "rgba(52, 152, 219,1.0)",
+    backgroundColor: 'rgba(52, 152, 219,1.0)',
     borderRadius: BorderRadius.XXL,
     padding: Spacing.SPACE_2XS,
     zIndex: 5,
   },
   playButton: {
-    position: "absolute",
+    position: 'absolute',
     // backgroundColor: Colors.SEMI_TRANSPARENT_BLACK,
     // borderRadius: BorderRadius.XXL,
     // backgroundColor: "rgba(241, 196, 15,0.3)",
     paddingHorizontal: screenWidth / 2,
-    paddingVertical: "31%",
+    paddingVertical: '31%',
   },
 });

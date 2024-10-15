@@ -1,10 +1,8 @@
-import { ApiResponse, FetchPostsResponse, PostInfo } from "@/types";
-import responsePost from "./response.json";
-import uuid from "react-native-uuid";
+import { ApiResponse, FetchPostsResponse, PostInfo } from '@/types';
+import responsePost from './response.json';
+import uuid from 'react-native-uuid';
 
-export const fetchPosts = async (
-  page: number = 1
-): Promise<FetchPostsResponse> => {
+export const fetchPosts = async (page: number = 1): Promise<FetchPostsResponse> => {
   // Simulate API call delay
   await new Promise((resolve) => setTimeout(resolve, 2000));
 

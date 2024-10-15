@@ -1,17 +1,17 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState } from 'react';
 import {
   View,
   TouchableOpacity,
   StyleSheet,
   GestureResponderEvent,
   PanResponderGestureState,
-} from "react-native";
-import { Video, ResizeMode } from "expo-av";
-import { Ionicons } from "@expo/vector-icons";
+} from 'react-native';
+import { Video, ResizeMode } from 'expo-av';
+import { Ionicons } from '@expo/vector-icons';
 import {
   ReactNativeZoomableView,
   ZoomableViewEvent,
-} from "@openspacelabs/react-native-zoomable-view";
+} from '@openspacelabs/react-native-zoomable-view';
 
 interface ZoomableVideoProps {
   videoUri: string;
@@ -34,7 +34,7 @@ const ZoomableVideo: React.FC<ZoomableVideoProps> = ({
   const handleZoomAfter = (
     event: GestureResponderEvent,
     gestureState: PanResponderGestureState,
-    zoomableViewEventObject: ZoomableViewEvent
+    zoomableViewEventObject: ZoomableViewEvent,
   ) => {
     zoomableViewRef.current?.zoomTo(1);
     setIsZoomed(zoomableViewEventObject.zoomLevel > 1);
@@ -72,11 +72,7 @@ const ZoomableVideo: React.FC<ZoomableVideoProps> = ({
         />
       </ReactNativeZoomableView>
       <TouchableOpacity style={styles.muteButton} onPress={toggleMute}>
-        <Ionicons
-          name={isMuted ? "volume-mute" : "volume-medium"}
-          size={24}
-          color="white"
-        />
+        <Ionicons name={isMuted ? 'volume-mute' : 'volume-medium'} size={24} color="white" />
       </TouchableOpacity>
     </View>
   );
@@ -84,20 +80,20 @@ const ZoomableVideo: React.FC<ZoomableVideoProps> = ({
 
 const styles = StyleSheet.create({
   videoWrapper: {
-    width: "100%",
-    height: "100%",
-    justifyContent: "center",
-    alignItems: "center",
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   media: {
-    width: "100%",
-    height: "100%",
+    width: '100%',
+    height: '100%',
   },
   muteButton: {
-    position: "absolute",
+    position: 'absolute',
     bottom: 10,
     right: 10,
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     borderRadius: 20,
     padding: 5,
   },

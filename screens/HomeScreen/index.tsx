@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import {
   View,
   FlatList,
@@ -6,13 +6,13 @@ import {
   ActivityIndicator,
   Text,
   ListRenderItemInfo,
-} from "react-native";
-import { Video } from "expo-av";
-import { styles } from "./styles";
-import { PostItem } from "@/components/post-item";
-import { PostInfo } from "@/types";
-import { fetchPosts } from "@/api/post";
-import { Colors } from "@/constants";
+} from 'react-native';
+import { Video } from 'expo-av';
+import { styles } from './styles';
+import { PostItem } from '@/components/post-item';
+import { PostInfo } from '@/types';
+import { fetchPosts } from '@/api/post';
+import { Colors } from '@/constants';
 
 const HomeScreen: React.FC = () => {
   // State
@@ -28,11 +28,7 @@ const HomeScreen: React.FC = () => {
   const isLoadingRef = useRef<boolean>(false);
 
   const onViewableItemsChanged = useCallback(
-    ({
-      changed,
-    }: {
-      changed: Array<{ item: PostInfo; isViewable: boolean }>;
-    }) => {
+    ({ changed }: { changed: Array<{ item: PostInfo; isViewable: boolean }> }) => {
       changed.forEach(({ item, isViewable }) => {
         const postId = item.postID.toString();
         if (item.mediaType === 1) {
@@ -56,7 +52,7 @@ const HomeScreen: React.FC = () => {
         }
       });
     },
-    []
+    [],
   );
 
   const viewabilityConfig = { itemVisiblePercentThreshold: 50 };
@@ -69,12 +65,10 @@ const HomeScreen: React.FC = () => {
     try {
       const response = await fetchPosts();
       setPosts((prevPosts) =>
-        shouldRefresh
-          ? response.postInfos
-          : [...prevPosts, ...response.postInfos]
+        shouldRefresh ? response.postInfos : [...prevPosts, ...response.postInfos],
       );
     } catch (error) {
-      console.error("Error fetching posts:", error);
+      console.error('Error fetching posts:', error);
     } finally {
       setIsLoading(false);
       isLoadingRef.current = false;
@@ -143,7 +137,7 @@ const HomeScreen: React.FC = () => {
         />
       );
     },
-    [playingVideos, mutedVideos, toggleMute]
+    [playingVideos, mutedVideos, toggleMute],
   );
 
   return (
@@ -157,16 +151,10 @@ const HomeScreen: React.FC = () => {
         viewabilityConfig={viewabilityConfig}
         onEndReached={onEndReached}
         onEndReachedThreshold={0.1}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
         ListFooterComponent={
           isLoading ? (
-            <ActivityIndicator
-              size="large"
-              color={Colors.PRIMARY}
-              style={styles.loader}
-            />
+            <ActivityIndicator size="large" color={Colors.PRIMARY} style={styles.loader} />
           ) : null
         }
       />

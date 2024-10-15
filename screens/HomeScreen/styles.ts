@@ -1,7 +1,7 @@
-import { Colors, Spacing } from "@/constants";
-import { StyleSheet, Dimensions } from "react-native";
+import { Colors, Spacing } from '@/constants';
+import { StyleSheet, Dimensions } from 'react-native';
 
-const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
+const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
   container: {
@@ -12,8 +12,8 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.WHITE,
   },
   postHeader: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     padding: 10,
     zIndex: 1,
   },
@@ -24,32 +24,32 @@ export const styles = StyleSheet.create({
     marginRight: 10,
   },
   username: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginRight: 10,
   },
   date: {
     color: Colors.FILL_1,
   },
   mediaContainer: {
-    width: "100%",
+    width: '100%',
     height: screenWidth,
     backgroundColor: Colors.FILL_1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   fullScreenZoomable: {
-    width: "100%",
-    height: "100%",
+    width: '100%',
+    height: '100%',
   },
   videoWrapper: {
-    width: "100%",
-    height: "100%",
-    justifyContent: "center",
-    alignItems: "center",
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   media: {
-    width: "100%",
-    height: "100%",
+    width: '100%',
+    height: '100%',
   },
   postFooter: {
     padding: 10,
@@ -59,7 +59,7 @@ export const styles = StyleSheet.create({
     marginBottom: 5,
   },
   hashtags: {
-    flexDirection: "row",
+    flexDirection: 'row',
     marginBottom: 10,
   },
   hashtag: {
@@ -67,13 +67,13 @@ export const styles = StyleSheet.create({
     marginRight: 5,
   },
   actions: {
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   actionButton: {
     marginRight: 15,
   },
   muteButton: {
-    position: "absolute",
+    position: 'absolute',
     bottom: 10,
     right: 10,
     backgroundColor: Colors.SEMI_TRANSPARENT_BLACK,
