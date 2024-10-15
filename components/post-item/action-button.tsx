@@ -7,7 +7,7 @@ import {
   FontWeight,
   Spacing,
 } from "@/constants";
-import Gap from "../gap";
+// import Gap from "../gap";
 import { PostInfo } from "@/types";
 
 interface ActionButtonsProps {
@@ -36,7 +36,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({ item }) => {
             />
           </TouchableOpacity>
         </View>
-        <Gap width={10} />
+        {/* <Gap width={10} /> */}
         <TouchableOpacity style={styles.buttonComment}>
           <Image
             source={require("../../assets/images/message-square-text.png")}

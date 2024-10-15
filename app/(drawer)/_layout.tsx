@@ -4,8 +4,8 @@ import { View, Text, Pressable, StyleSheet, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Colors, Spacing } from "@/constants";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import Gap from "@/components/gap";
 import CustomDrawerContent from "@/components/drawer-content";
+// import Gap from "@/components/gap";
 
 export default function DrawerLayout() {
   return (
@@ -20,7 +20,7 @@ export default function DrawerLayout() {
                 <Pressable onPress={() => navigation.toggleDrawer()}>
                   <Ionicons name="menu" size={24} color="black" />
                 </Pressable>
-                <Gap width={20} />
+                {/* <Gap width={20} /> */}
                 <Image
                   source={require("../../assets/images/LAHELU.png")}
                   style={{ height: 20, width: 100 }}
