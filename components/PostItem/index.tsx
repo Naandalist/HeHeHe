@@ -1,12 +1,12 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, Dimensions, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, Dimensions, ScrollView } from 'react-native';
 import { Image } from 'expo-image';
 import { Video, ResizeMode, AVPlaybackStatus } from 'expo-av';
+import Slider from '@react-native-community/slider';
 import { Ionicons } from '@expo/vector-icons';
+import ActionButtons from '../ActionButtonPostItem';
 import { PostInfo } from '@/types';
 import { styles } from './styles';
-import ActionButtons from './action-button';
-import Slider from '@react-native-community/slider';
 import { Colors } from '@/constants';
 
 interface PostItemProps {
@@ -21,11 +21,7 @@ interface PostItemProps {
 
 const { width: screenWidth } = Dimensions.get('window');
 
-// Blurhash placeholder for images
-const blurhash =
-  '|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[';
-
-export const PostItem: React.FC<PostItemProps> = ({
+function PostItem({
   item,
   isPlaying,
   isMuted,
@@ -33,7 +29,7 @@ export const PostItem: React.FC<PostItemProps> = ({
   toggleMute,
   onPlaybackStatusUpdate,
   videoRef,
-}) => {
+}: PostItemProps): React.ReactElement {
   const containerWidth = screenWidth;
   const containerHeight = (screenWidth / 4) * 3;
 
@@ -77,13 +73,14 @@ export const PostItem: React.FC<PostItemProps> = ({
     }
   };
 
+  const getPostIdString = (postId: string | number): string => postId.toString();
+
   const renderMedia = () => {
     if (item.mediaType === 0) {
       return (
         <Image
           source={{ uri: item.media }}
           style={styles.media}
-          placeholder={{ blurhash }}
           contentFit="contain"
           transition={1000}
         />
@@ -99,37 +96,35 @@ export const PostItem: React.FC<PostItemProps> = ({
             source={{ uri: item.media }}
             style={styles.media}
             resizeMode={ResizeMode.CONTAIN}
-            isLooping={true}
+            isLooping
             isMuted={isMuted}
             useNativeControls={false}
             shouldPlay={isPlaying}
             onPlaybackStatusUpdate={handlePlaybackStatusUpdate}
           />
           <TouchableOpacity
-            onPress={() => togglePlay(item.postID.toString())}
-            style={[styles.playButton, localStyles.playButtonOverlay]}
-          ></TouchableOpacity>
+            onPress={() => togglePlay(getPostIdString(item.postID))}
+            style={[styles.playButton, styles.playButtonOverlay]}
+          />
           {!isPlaying && (
             <TouchableOpacity
-              style={localStyles.playButtonOverlay}
+              style={styles.playButtonOverlay}
               onPress={() => {
-                // toggleMute(item.postID.toString(), !isMuted);
-                togglePlay(item.postID.toString());
+                togglePlay(getPostIdString(item.postID));
               }}
             >
               <Ionicons name="play-circle" size={52} color="white" />
             </TouchableOpacity>
           )}
-          {/* )} */}
           <TouchableOpacity
             style={styles.muteButton}
-            onPress={() => toggleMute(item.postID.toString(), !isMuted)}
+            onPress={() => toggleMute(getPostIdString(item.postID), !isMuted)}
           >
             <Ionicons name={isMuted ? 'volume-mute' : 'volume-medium'} size={24} color="white" />
           </TouchableOpacity>
-          <View style={localStyles.sliderContainer}>
+          <View style={styles.sliderContainer}>
             <Slider
-              style={localStyles.slider}
+              style={styles.slider}
               minimumValue={0}
               maximumValue={duration}
               value={position}
@@ -147,7 +142,7 @@ export const PostItem: React.FC<PostItemProps> = ({
 
   const renderHashtags = () => (
     <ScrollView
-      horizontal={true}
+      horizontal
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={{ paddingVertical: 10 }}
     >
@@ -179,28 +174,6 @@ export const PostItem: React.FC<PostItemProps> = ({
       </View>
     </View>
   );
-};
+}
 
-const localStyles = StyleSheet.create({
-  playButtonOverlay: {
-    // ...StyleSheet.absoluteFillObject,
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: 5,
-    position: 'absolute',
-  },
-  sliderContainer: {
-    position: 'absolute',
-    bottom: -15,
-    left: 0,
-    right: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    zIndex: 2,
-    marginLeft: -15,
-    paddingRight: 12,
-    paddingVertical: 8,
-  },
-  slider: {
-    width: '110%',
-  },
-});
+export default PostItem;

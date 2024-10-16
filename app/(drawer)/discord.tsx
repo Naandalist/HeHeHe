@@ -1,18 +1,5 @@
-import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import { BlankScreen } from '@/screens';
 
-export default function Discord() {
-  return (
-    <View style={styles.container}>
-      <Text>Discord Screen is blank! 😀</Text>
-    </View>
-  );
+export default function DiscordScreen() {
+  return <BlankScreen screenName="Topic" />;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});

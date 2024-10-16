@@ -1,18 +1,5 @@
-import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import { BlankScreen } from '@/screens';
 
 export default function DonaturScreen() {
-  return (
-    <View style={styles.container}>
-      <Text>DonaturScreen Screen is blank! 😀</Text>
-    </View>
-  );
+  return <BlankScreen screenName="Donatur" />;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});

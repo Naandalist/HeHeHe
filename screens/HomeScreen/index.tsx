@@ -4,17 +4,16 @@ import {
   FlatList,
   RefreshControl,
   ActivityIndicator,
-  Text,
   ListRenderItemInfo,
 } from 'react-native';
-import { Video } from 'expo-av';
+import { Video, AVPlaybackStatus } from 'expo-av';
 import { styles } from './styles';
-import { PostItem } from '@/components/post-item';
+import { PostItem } from '@/components';
 import { PostInfo } from '@/types';
 import { fetchPosts } from '@/api/post';
 import { Colors } from '@/constants';
 
-const HomeScreen: React.FC = () => {
+function HomeScreen() {
   // State
   const [posts, setPosts] = useState<PostInfo[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -68,7 +67,7 @@ const HomeScreen: React.FC = () => {
         shouldRefresh ? response.postInfos : [...prevPosts, ...response.postInfos],
       );
     } catch (error) {
-      console.error('Error fetching posts:', error);
+      // console.error('Error fetching posts:', error);
     } finally {
       setIsLoading(false);
       isLoadingRef.current = false;
@@ -108,7 +107,7 @@ const HomeScreen: React.FC = () => {
           item={item}
           isPlaying={playingVideos.has(postId)}
           isMuted={mutedVideos.has(postId)}
-          togglePlay={(id) => {
+          togglePlay={(id: string) => {
             setPlayingVideos((prev) => {
               const newSet = new Set(prev);
               if (newSet.has(id)) {
@@ -120,7 +119,7 @@ const HomeScreen: React.FC = () => {
             });
           }}
           toggleMute={toggleMute}
-          onPlaybackStatusUpdate={(status) => {
+          onPlaybackStatusUpdate={(status: AVPlaybackStatus) => {
             if (status.isLoaded && !status.isPlaying) {
               setPlayingVideos((prev) => {
                 const newSet = new Set(prev);
@@ -129,7 +128,7 @@ const HomeScreen: React.FC = () => {
               });
             }
           }}
-          videoRef={(ref) => {
+          videoRef={(ref: Video | null) => {
             if (ref) {
               videoRefs.current[postId] = ref;
             }

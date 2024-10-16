@@ -1,18 +1,5 @@
-import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import { BlankScreen } from '@/screens';
 
 export default function MedaliScreen() {
-  return (
-    <View style={styles.container}>
-      <Text>MedaliScreen Screen is blank! 😀</Text>
-    </View>
-  );
+  return <BlankScreen screenName="Medali" />;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});

@@ -1,10 +1,5 @@
-import { View, Text } from 'react-native';
-import React from 'react';
+import { BlankScreen } from '@/screens';
 
 export default function ProfileScreen() {
-  return (
-    <View>
-      <Text>ProfileScreen</Text>
-    </View>
-  );
+  return <BlankScreen screenName="Profile" />;
 }

@@ -1,10 +1,5 @@
-import { View, Text } from 'react-native';
-import React from 'react';
+import { BlankScreen } from '@/screens';
 
 export default function TopicScreen() {
-  return (
-    <View>
-      <Text>TopicScreen</Text>
-    </View>
-  );
+  return <BlankScreen screenName="Topic" />;
 }

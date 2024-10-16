@@ -1,10 +1,22 @@
-import { Tabs } from 'expo-router';
-import Ionicons from '@expo/vector-icons/Ionicons';
 import { Pressable, Alert } from 'react-native';
 import { useActionSheet } from '@expo/react-native-action-sheet';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { Tabs } from 'expo-router';
 import { Colors } from '@/constants';
 
-export default function TabLayout() {
+const handlePress = (tabName: string) => {
+  Alert.alert(`${tabName} pressed`, "This tab doesn't navigate to a new screen.");
+};
+
+function AddPostTab(props: any) {
+  return <Pressable {...props} onPress={() => handlePress('Add Post')} />;
+}
+
+function NotificationTab(props: any) {
+  return <Pressable {...props} onPress={() => handlePress('notification')} />;
+}
+
+function ProfileTab(props: any) {
   const { showActionSheetWithOptions } = useActionSheet();
 
   const openActionSheet = () => {
@@ -54,15 +66,17 @@ export default function TabLayout() {
             // Handle 'Hubungi kami'
             break;
           // Add cases for other options as needed
+          default:
+          // Handle default
         }
       },
     );
   };
 
-  const handlePress = (tabName: string) => {
-    Alert.alert(`${tabName} pressed`, "This tab doesn't navigate to a new screen.");
-  };
+  return <Pressable {...props} onPress={openActionSheet} />;
+}
 
+export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
@@ -75,9 +89,7 @@ export default function TabLayout() {
         options={{
           title: 'Home',
           headerShown: false,
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons name={'home-outline'} color={color} size={24} />
-          ),
+          tabBarIcon: ({ color }) => <Ionicons name="home-outline" color={color} size={24} />,
         }}
       />
       <Tabs.Screen
@@ -85,9 +97,7 @@ export default function TabLayout() {
         options={{
           title: 'Topic',
           headerShown: false,
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons name={'people-outline'} color={color} size={24} />
-          ),
+          tabBarIcon: ({ color }) => <Ionicons name="people-outline" color={color} size={24} />,
         }}
       />
       <Tabs.Screen
@@ -96,7 +106,7 @@ export default function TabLayout() {
           title: 'Add New Post',
           headerShown: false,
           tabBarIcon: ({ color }) => <Ionicons name="add-circle-outline" color={color} size={24} />,
-          tabBarButton: (props) => <Pressable {...props} onPress={() => handlePress('Add Post')} />,
+          tabBarButton: AddPostTab,
         }}
         listeners={{
           tabPress: (e) => {
@@ -112,9 +122,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => (
             <Ionicons name="notifications-outline" color={color} size={24} />
           ),
-          tabBarButton: (props) => (
-            <Pressable {...props} onPress={() => handlePress('notification')} />
-          ),
+          tabBarButton: NotificationTab,
         }}
         listeners={{
           tabPress: (e) => {
@@ -129,7 +137,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => (
             <Ionicons name="person-circle-outline" color={color} size={24} />
           ),
-          tabBarButton: (props) => <Pressable {...props} onPress={() => openActionSheet()} />,
+          tabBarButton: ProfileTab,
         }}
         listeners={{
           tabPress: (e) => {

@@ -4,6 +4,7 @@ export const Colors = {
   TERTIARY: '#dbeefa',
   GREEN: '#1eca44',
   RED: '#ff5656',
+  GREY: '#f0f0f0',
   ORANGE: '#e99e2d',
   YELLOW: '#d1c023',
   WHITE: '#fff',
@@ -19,7 +20,7 @@ export const Colors = {
   BORDER_ALT: '#f3f3f3',
   SEMI_TRANSPARENT_BLACK: 'rgba(0, 0, 0, 0.1)',
   TINT_COLOR: '#666',
-};
+} as const;
 
 export const Spacing = {
   SPACE_2XS: 4,
@@ -31,7 +32,7 @@ export const Spacing = {
   SPACE_2XL: 28,
   SPACE_3XL: 32,
   SPACE_G: 48,
-};
+} as const;
 
 export const FontSizes = {
   XS: 12,
@@ -42,38 +43,39 @@ export const FontSizes = {
   XXL: 32,
   XXXL: 48,
   G: 64,
-};
+} as const;
 
 export const FontWeight = {
-  THIN: '100' as '100',
-  EXTRA_LIGHT: '200' as '200',
-  LIGHT: '300' as '300',
-  REGULAR: '400' as '400',
-  MEDIUM: '500' as '500',
-  SEMI_BOLD: '600' as '600',
-  BOLD: '700' as '700',
-  EXTRA_BOLD: '800' as '800',
-  BLACK: '900' as '900',
-};
+  THIN: '100',
+  EXTRA_LIGHT: '200',
+  LIGHT: '300',
+  REGULAR: '400',
+  MEDIUM: '500',
+  SEMI_BOLD: '600',
+  BOLD: '700',
+  EXTRA_BOLD: '800',
+  BLACK: '900',
+} as const;
 
 export const BorderRadius = {
   S: 4,
   M: 8,
   L: 12,
   XXL: 20,
-};
+} as const;
 
 export const ClickSize = {
   S: 30,
   M: 40,
   L: 50,
-};
+} as const;
 
 export const Shadow = {
   DEFAULT: '0 0 8px rgba(0, 0, 0, 0.1)',
-};
+} as const;
 
 export const ColorAdjustments = {
   HOVER_PCT: '90%',
   ACTIVE_PCT: '78%',
-};
+} as const;
+

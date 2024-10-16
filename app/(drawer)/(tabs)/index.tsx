@@ -1,11 +1,11 @@
-import { Text, View, StyleSheet } from 'react-native';
-import React from 'react';
-import HomeScreen from '@/screens/HomeScreen';
-import { Colors, FontWeight } from '@/constants';
+import { View } from 'react-native';
 import {
   MaterialTopTabNavigationOptions,
   createMaterialTopTabNavigator,
 } from '@react-navigation/material-top-tabs';
+import { Colors } from '@/constants';
+import { CustomTabLabel } from '@/components';
+import HomeScreen from '@/screens/HomeScreen';
 import FreshScreen from '../fresh';
 import TrendingScreen from '../trending';
 
@@ -13,13 +13,13 @@ const Tab = createMaterialTopTabNavigator();
 
 const tabOptions = (label: string): MaterialTopTabNavigationOptions => ({
   tabBarLabel: ({ color, focused }) => (
-    <Text style={[styles.tabLabel, { color }, focused && styles.tabLabelFocused]}>{label}</Text>
+    <CustomTabLabel label={label} color={color} focused={focused} />
   ),
 });
 
 export default function Index() {
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1 }}>
       <Tab.Navigator
         screenOptions={{
           swipeEnabled: false,
@@ -42,15 +42,3 @@ export default function Index() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  tabLabel: {
-    fontWeight: FontWeight.MEDIUM,
-  },
-  tabLabelFocused: {
-    fontWeight: FontWeight.EXTRA_BOLD,
-  },
-});

@@ -1,5 +1,6 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import { BorderRadius, Colors, FontSizes, FontWeight, Spacing } from '@/constants';
+
 const { width: screenWidth } = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
@@ -92,5 +93,25 @@ export const styles = StyleSheet.create({
     // backgroundColor: "rgba(241, 196, 15,0.3)",
     paddingHorizontal: screenWidth / 2,
     paddingVertical: '31%',
+  },
+  playButtonOverlay: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 5,
+    position: 'absolute',
+  },
+  sliderContainer: {
+    position: 'absolute',
+    bottom: -15,
+    left: 0,
+    right: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    zIndex: 2,
+    marginLeft: -15,
+    paddingRight: 12,
+    paddingVertical: 8,
+  },
+  slider: {
+    width: '110%',
   },
 });

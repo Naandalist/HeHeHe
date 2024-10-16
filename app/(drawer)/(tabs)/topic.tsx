@@ -1,23 +1,16 @@
-import React from 'react';
-import { View, Text, StyleSheet, useColorScheme } from 'react-native';
+import { View } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { BlankScreen } from '@/screens';
+import { Colors } from '@/constants';
 
 const Tab = createMaterialTopTabNavigator();
 
 function TopicContent() {
-  return (
-    <View style={styles.tabContent}>
-      <Text style={styles.text}>Topik Content</Text>
-    </View>
-  );
+  return <BlankScreen screenName="Topik" />;
 }
 
 function HasJoinContent() {
-  return (
-    <View style={styles.tabContent}>
-      <Text style={styles.text}>Sudah Gabung Content</Text>
-    </View>
-  );
+  return <BlankScreen screenName="Has Joined" />;
 }
 
 function TopicTabs() {
@@ -25,13 +18,13 @@ function TopicTabs() {
     <Tab.Navigator
       screenOptions={{
         tabBarStyle: {
-          backgroundColor: '#f0f0f0',
+          backgroundColor: Colors.GREY,
           paddingTop: 50,
         },
-        tabBarActiveTintColor: '#65a4ec',
-        tabBarInactiveTintColor: '#000000',
+        tabBarActiveTintColor: Colors.PRIMARY,
+        tabBarInactiveTintColor: Colors.FILL_2,
         tabBarIndicatorStyle: {
-          backgroundColor: '#65a4ec',
+          backgroundColor: Colors.PRIMARY,
         },
       }}
     >
@@ -42,39 +35,9 @@ function TopicTabs() {
 }
 
 export default function TopicScreen() {
-  const colorScheme = useColorScheme();
-  const isDarkMode = colorScheme === 'dark';
-
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1 }}>
       <TopicTabs />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#25292e',
-  },
-  tabContent: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#FFF',
-  },
-  text: {
-    color: '#25292e',
-  },
-  bannerContainer: {
-    backgroundColor: '#1e3a5f',
-    padding: 10,
-    marginHorizontal: 10,
-    marginTop: 10,
-    borderRadius: 5,
-  },
-  bannerText: {
-    color: '#fff',
-    textAlign: 'center',
-  },
-});
