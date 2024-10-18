@@ -8,6 +8,7 @@ import ActionButtons from '../ActionButtonPostItem';
 import { PostInfo } from '@/types';
 import { styles } from './styles';
 import { Colors } from '@/constants';
+import { ZoomableView } from '@/lib';
 
 interface PostItemProps {
   item: PostInfo;
@@ -37,6 +38,7 @@ function PostItem({
   const [duration, setDuration] = useState(0);
   const [position, setPosition] = useState(0);
   const [isSeeking, setIsSeeking] = useState(false);
+  const [isZoomed, setIsZoomed] = useState(false);
 
   useEffect(() => {
     if (localVideoRef.current) {
@@ -157,6 +159,19 @@ function PostItem({
     </ScrollView>
   );
 
+  const renderPostFooter = () => (
+    <View style={styles.postFooter}>
+      {!isZoomed ? (
+        <>
+          {renderHashtags()}
+          <ActionButtons item={item} />
+        </>
+      ) : (
+        <View style={{ paddingVertical: 48 }} />
+      )}
+    </View>
+  );
+
   return (
     <View style={styles.post}>
       <View style={styles.postHeader}>
@@ -165,13 +180,13 @@ function PostItem({
         <Text style={styles.date}>{item.createTime}</Text>
       </View>
       <Text style={styles.title}>{item.title}</Text>
-      <View style={[styles.mediaContainer, { width: containerWidth, height: containerHeight }]}>
+      <ZoomableView
+        style={[styles.mediaContainer, { width: containerWidth, height: containerHeight }]}
+        onZoomChange={setIsZoomed}
+      >
         {renderMedia()}
-      </View>
-      <View style={styles.postFooter}>
-        {renderHashtags()}
-        <ActionButtons item={item} />
-      </View>
+      </ZoomableView>
+      {renderPostFooter()}
     </View>
   );
 }

@@ -10,8 +10,8 @@ import { Video, AVPlaybackStatus } from 'expo-av';
 import { styles } from './styles';
 import { PostItem } from '@/components';
 import { PostInfo } from '@/types';
-import { fetchPosts } from '@/api/post';
 import { Colors } from '@/constants';
+import { fetchPosts } from '@/lib';
 
 function HomeScreen() {
   // State
