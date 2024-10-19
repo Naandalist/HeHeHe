@@ -1,7 +1,7 @@
-import { Colors, Spacing } from '@/constants';
+import { Colors, LogoSize, Spacing } from '@/constants';
 import { StyleSheet } from 'react-native';
 
-export const styles = StyleSheet.create({
+export default StyleSheet.create({
   page: {
     flex: 1,
   },
@@ -9,8 +9,8 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingTop: 50,
+    paddingHorizontal: Spacing.SPACE_M,
+    paddingTop: Spacing.SPACE_G,
     paddingBottom: Spacing.SPACE_M,
     backgroundColor: Colors.PLAIN,
   },
@@ -20,8 +20,8 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logo: {
-    height: 20,
-    width: 100,
-    marginHorizontal: 12,
+    height: LogoSize.height,
+    width: LogoSize.width,
+    marginHorizontal: Spacing.SPACE_S,
   },
 });

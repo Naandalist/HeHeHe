@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Image, ImageSourcePropType } from 'react-native';
 import { PostInfo } from '@/types';
-import { styles } from './style';
+import styles from './style';
 
 // Import images
 import arrowBigUpImage from '../../assets/images/arrow-big-up.png';

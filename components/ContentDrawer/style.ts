@@ -1,30 +1,32 @@
+import { Colors, FontSizes, FontWeight, Spacing } from '@/constants';
 import { StyleSheet } from 'react-native';
 
-export const styles = StyleSheet.create({
+export default StyleSheet.create({
   section: {
-    marginBottom: 20,
+    marginBottom: Spacing.SPACE_L,
   },
   sectionTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginLeft: 15,
-    marginBottom: 10,
+    fontSize: Spacing.SPACE_M,
+    fontWeight: FontWeight.BOLD,
+    marginLeft: Spacing.SPACE_M,
+    marginBottom: Spacing.SPACE_M,
   },
   menuItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 10,
-    paddingHorizontal: 15,
+    paddingVertical: Spacing.SPACE_XS,
+    paddingHorizontal: Spacing.SPACE_M,
   },
   activeMenuItem: {
-    backgroundColor: '#E8F0FE',
+    backgroundColor: Colors.PRIMARY,
   },
   menuItemText: {
-    marginLeft: 15,
-    fontSize: 16,
+    marginLeft: Spacing.SPACE_M,
+    fontSize: FontSizes.M,
+    color: Colors.FILL_2,
   },
   activeMenuItemText: {
-    color: '#4285F4',
-    fontWeight: 'bold',
+    color: Colors.PLAIN,
+    fontWeight: FontWeight.BOLD,
   },
 });

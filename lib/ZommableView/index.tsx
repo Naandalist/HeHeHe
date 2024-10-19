@@ -19,6 +19,7 @@ function ZoomableView({
   style = undefined,
   onZoomChange = () => {},
 }: PropsWithChildren<ZoomableViewProps>): JSX.Element {
+  // Shared values for animation
   const scale = useSharedValue(1);
   const savedScale = useSharedValue(1);
   const translateX = useSharedValue(0);
@@ -27,6 +28,7 @@ function ZoomableView({
   const ANIMATION_DURATION = 300;
   const ZOOM_THRESHOLD = 1.1;
 
+  // Function to reset zoom and translation
   const resetZoom = useCallback(() => {
     scale.value = withTiming(1, { duration: ANIMATION_DURATION });
     savedScale.value = 1;
@@ -34,10 +36,12 @@ function ZoomableView({
     translateY.value = withTiming(0, { duration: ANIMATION_DURATION });
   }, [scale, savedScale, translateX, translateY]);
 
+  // React to changes when zoom
   useAnimatedReaction(
     () => scale.value > ZOOM_THRESHOLD,
     (isZoomed, previouslyZoomed) => {
       if (isZoomed !== previouslyZoomed) {
+        // run onZoomChange on the JS thread when zoom state change
         runOnJS(onZoomChange)(isZoomed);
       }
     },
@@ -47,6 +51,7 @@ function ZoomableView({
   const gesture = useMemo(
     () =>
       Gesture.Simultaneous(
+        // Pinch gesture for zooming
         Gesture.Pinch()
           .onStart(() => {
             savedScale.value = scale.value;
@@ -59,6 +64,7 @@ function ZoomableView({
           .onEnd(() => {
             runOnJS(resetZoom)();
           }),
+        // Pan gesture for moving zoomed area
         Gesture.Pan()
           .minPointers(2)
           .onUpdate((e) => {
@@ -74,6 +80,7 @@ function ZoomableView({
     [resetZoom, scale, savedScale, translateX, translateY],
   );
 
+  // Animated style for zoom and translation
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [
       { translateX: translateX.value },

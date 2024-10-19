@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { FontWeight } from '@/constants';
 
-export const styles = StyleSheet.create({
+export default StyleSheet.create({
   tabLabel: {
     fontWeight: FontWeight.MEDIUM,
   },

@@ -1,15 +1,22 @@
+import React, { useState } from 'react';
 import { Pressable, Alert } from 'react-native';
-import { useActionSheet } from '@expo/react-native-action-sheet';
-import Ionicons from '@expo/vector-icons/Ionicons';
 import { Tabs } from 'expo-router';
 import { Colors } from '@/constants';
+import { IconTabBar, WelcomeModal } from '@/components';
 
 const handlePress = (tabName: string) => {
-  Alert.alert(`${tabName} pressed`, "This tab doesn't navigate to a new screen.");
+  Alert.alert(`${tabName} pressed`, "This tab doesn't navigate to anywhere.");
 };
 
 function AddPostTab(props: any) {
-  return <Pressable {...props} onPress={() => handlePress('Add Post')} />;
+  const [modalVisible, setModalVisible] = useState(false);
+
+  return (
+    <>
+      <Pressable {...props} onPress={() => setModalVisible(true)} />
+      <WelcomeModal isVisible={modalVisible} onClose={() => setModalVisible(false)} />
+    </>
+  );
 }
 
 function NotificationTab(props: any) {
@@ -17,63 +24,7 @@ function NotificationTab(props: any) {
 }
 
 function ProfileTab(props: any) {
-  const { showActionSheetWithOptions } = useActionSheet();
-
-  const openActionSheet = () => {
-    const options = [
-      '0 koin',
-      'hurairaalistisa384',
-      'Lahelu Plus',
-      'Tersimpan',
-      'Koin gratis',
-      'Logout',
-      'Pengaturan',
-      'Hubungi kami',
-      'Cancel',
-    ];
-    const cancelButtonIndex = options.length - 1;
-
-    showActionSheetWithOptions(
-      {
-        options,
-        cancelButtonIndex,
-        destructiveButtonIndex: 5, // Index for 'Logout'
-      },
-      (selectedIndex: number | undefined) => {
-        switch (selectedIndex) {
-          case 0:
-            // Handle '0 koin'
-            break;
-          case 1:
-            // Handle 'hurairaalistisa384'
-            break;
-          case 2:
-            // Handle 'Lahelu Plus'
-            break;
-          case 3:
-            // Handle 'Tersimpan'
-            break;
-          case 4:
-            // Handle 'Koin gratis'
-            break;
-          case 5:
-            // Handle 'Logout'
-            break;
-          case 6:
-            // Handle 'Pengaturan'
-            break;
-          case 7:
-            // Handle 'Hubungi kami'
-            break;
-          // Add cases for other options as needed
-          default:
-          // Handle default
-        }
-      },
-    );
-  };
-
-  return <Pressable {...props} onPress={openActionSheet} />;
+  return <Pressable {...props} onPress={() => handlePress('Profile')} />;
 }
 
 export default function TabLayout() {
@@ -89,7 +40,7 @@ export default function TabLayout() {
         options={{
           title: 'Home',
           headerShown: false,
-          tabBarIcon: ({ color }) => <Ionicons name="home-outline" color={color} size={24} />,
+          tabBarIcon: ({ color }) => <IconTabBar name="home-outline" color={color} />,
         }}
       />
       <Tabs.Screen
@@ -97,7 +48,7 @@ export default function TabLayout() {
         options={{
           title: 'Topic',
           headerShown: false,
-          tabBarIcon: ({ color }) => <Ionicons name="people-outline" color={color} size={24} />,
+          tabBarIcon: ({ color }) => <IconTabBar name="people-outline" color={color} />,
         }}
       />
       <Tabs.Screen
@@ -105,7 +56,7 @@ export default function TabLayout() {
         options={{
           title: 'Add New Post',
           headerShown: false,
-          tabBarIcon: ({ color }) => <Ionicons name="add-circle-outline" color={color} size={24} />,
+          tabBarIcon: ({ color }) => <IconTabBar name="add-circle-outline" color={color} />,
           tabBarButton: AddPostTab,
         }}
         listeners={{
@@ -119,9 +70,7 @@ export default function TabLayout() {
         options={{
           title: 'Notification',
           headerShown: false,
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="notifications-outline" color={color} size={24} />
-          ),
+          tabBarIcon: ({ color }) => <IconTabBar name="notifications-outline" color={color} />,
           tabBarButton: NotificationTab,
         }}
         listeners={{
@@ -134,9 +83,7 @@ export default function TabLayout() {
         name="profile"
         options={{
           title: 'Profile',
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="person-circle-outline" color={color} size={24} />
-          ),
+          tabBarIcon: ({ color }) => <IconTabBar name="person-circle-outline" color={color} />,
           tabBarButton: ProfileTab,
         }}
         listeners={{

@@ -1,5 +1,5 @@
 import { Text, View } from 'react-native';
-import { styles } from './style';
+import styles from './style';
 
 interface BlankScreenProps {
   screenName: string;

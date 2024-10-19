@@ -1,7 +1,7 @@
-import { BorderRadius, Colors, FontSizes, FontWeight, Spacing } from '@/constants';
+import { BorderRadius, Colors, FontSizes, FontWeight, IconSize, Spacing } from '@/constants';
 import { StyleSheet } from 'react-native';
 
-export const styles = StyleSheet.create({
+export default StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -28,6 +28,7 @@ export const styles = StyleSheet.create({
     borderRadius: BorderRadius.M,
     borderColor: Colors.FILL_5,
     borderWidth: 1,
+    marginLeft: Spacing.SPACE_XS,
   },
   buttonShare: {
     alignItems: 'center',
@@ -38,14 +39,14 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
   },
   icon: {
-    width: 20,
-    height: 24,
+    width: IconSize,
+    height: IconSize,
     tintColor: Colors.TINT_COLOR,
   },
   buttonText: {
     marginLeft: Spacing.SPACE_2XS,
     fontSize: FontSizes.S,
-    tintColor: Colors.TINT_COLOR,
+    color: Colors.TINT_COLOR,
     fontWeight: FontWeight.BOLD,
   },
 });

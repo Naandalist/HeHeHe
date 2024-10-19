@@ -5,9 +5,9 @@ import {
 } from '@react-navigation/material-top-tabs';
 import { Colors } from '@/constants';
 import { CustomTabLabel } from '@/components';
-import HomeScreen from '@/screens/HomeScreen';
 import FreshScreen from '../fresh';
 import TrendingScreen from '../trending';
+import { HomeScreen } from '@/screens';
 
 const Tab = createMaterialTopTabNavigator();
 

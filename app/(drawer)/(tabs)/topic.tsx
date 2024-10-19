@@ -1,7 +1,7 @@
 import { View } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { BlankScreen } from '@/screens';
-import { Colors } from '@/constants';
+import { Colors, Spacing } from '@/constants';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -19,7 +19,7 @@ function TopicTabs() {
       screenOptions={{
         tabBarStyle: {
           backgroundColor: Colors.GREY,
-          paddingTop: 50,
+          paddingTop: Spacing.SPACE_2XS,
         },
         tabBarActiveTintColor: Colors.PRIMARY,
         tabBarInactiveTintColor: Colors.FILL_2,

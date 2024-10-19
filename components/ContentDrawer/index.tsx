@@ -3,7 +3,8 @@ import { View, Text, Pressable } from 'react-native';
 import { DrawerContentScrollView, DrawerContentComponentProps } from '@react-navigation/drawer';
 import { Ionicons } from '@expo/vector-icons';
 import { usePathname, useRouter, Href } from 'expo-router';
-import { styles } from './style';
+import { Colors, IconSize } from '@/constants';
+import styles from './style';
 
 interface MenuItem {
   label: string;
@@ -70,7 +71,11 @@ function CustomDrawerContent({ navigation }: DrawerContentComponentProps) {
             style={[styles.menuItem, active && styles.activeMenuItem]}
             onPress={() => handleNavigation(item.route)}
           >
-            <Ionicons name={item.icon} size={24} color={active ? '#4285F4' : 'black'} />
+            <Ionicons
+              name={item.icon}
+              size={IconSize}
+              color={active ? Colors.PLAIN : Colors.FILL_2}
+            />
             <Text style={[styles.menuItemText, active && styles.activeMenuItemText]}>
               {item.label}
             </Text>

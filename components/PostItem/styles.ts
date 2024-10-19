@@ -1,9 +1,9 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { BorderRadius, Colors, FontSizes, FontWeight, Spacing } from '@/constants';
+import { BorderRadius, Colors, FontSizes, FontWeight, Spacing, avaSize } from '@/constants';
 
 const { width: screenWidth } = Dimensions.get('window');
 
-export const styles = StyleSheet.create({
+export default StyleSheet.create({
   post: {
     marginBottom: Spacing.SPACE_2XS,
     backgroundColor: Colors.WHITE,
@@ -14,8 +14,8 @@ export const styles = StyleSheet.create({
     padding: Spacing.SPACE_S,
   },
   avatar: {
-    width: 40,
-    height: 40,
+    width: avaSize,
+    height: avaSize,
     marginRight: Spacing.SPACE_S,
   },
   username: {
@@ -29,10 +29,10 @@ export const styles = StyleSheet.create({
     fontSize: FontSizes.XS,
   },
   title: {
-    marginHorizontal: 16,
-    marginBottom: 10,
-    fontWeight: 'bold',
-    fontSize: 16,
+    marginHorizontal: Spacing.SPACE_M,
+    marginBottom: Spacing.SPACE_S,
+    fontWeight: FontWeight.BOLD,
+    fontSize: Spacing.SPACE_M,
   },
   mediaContainer: {
     backgroundColor: Colors.FILL_6,
@@ -79,7 +79,7 @@ export const styles = StyleSheet.create({
   },
   muteButton: {
     position: 'absolute',
-    bottom: 20,
+    bottom: Spacing.SPACE_L,
     right: Spacing.SPACE_S,
     backgroundColor: Colors.SEMI_TRANSPARENT_BLACK,
     borderRadius: BorderRadius.XXL,
@@ -88,9 +88,6 @@ export const styles = StyleSheet.create({
   },
   playButton: {
     position: 'absolute',
-    // backgroundColor: Colors.SEMI_TRANSPARENT_BLACK,
-    // borderRadius: BorderRadius.XXL,
-    // backgroundColor: 'rgba(241, 196, 15,0.3)',
     paddingHorizontal: screenWidth / 2,
     paddingVertical: '31%',
   },
@@ -102,14 +99,14 @@ export const styles = StyleSheet.create({
   },
   sliderContainer: {
     position: 'absolute',
-    bottom: -16,
+    bottom: -Spacing.SPACE_M,
     left: 0,
     right: 0,
     backgroundColor: 'transparent',
     zIndex: 2,
-    marginLeft: -15,
-    paddingRight: 12,
-    paddingVertical: 8,
+    marginLeft: -Spacing.SPACE_M,
+    paddingRight: Spacing.SPACE_S,
+    paddingVertical: Spacing.SPACE_XS,
   },
   slider: {
     width: '110%',

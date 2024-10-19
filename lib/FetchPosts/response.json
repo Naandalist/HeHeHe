@@ -24,8 +24,8 @@
       "createTime": "2 hari",
       "mediaWidth": 1440,
       "mediaHeight": 2560,
-      "media": "https://cache.lahelu.com/video-PkYz2NauW-95748",
-      "mediaType": 1,
+      "media": "https://cache.lahelu.com/image-PYoQIcE8R-15507",
+      "mediaType": 0,
       "hashtags": ["vertical", "video", "test"],
       "userUsername": "video_tester",
       "userAvatar": "https://avatar.iran.liara.run/public/girl"
@@ -70,20 +70,6 @@
       "mediaType": 0,
       "hashtags": ["mother", "ibuibu", "war"],
       "userUsername": "pembawa_onar",
-      "userAvatar": "https://avatar.iran.liara.run/public/boy"
-    },
-    {
-      "postID": "5",
-      "title": "Halah halah 🫠",
-      "totalUpvotes": 150,
-      "totalComments": 25,
-      "createTime": "2 hari",
-      "mediaWidth": 1920,
-      "mediaHeight": 1080,
-      "media": "https://cache.lahelu.com/video-PJoJ2d82M-16959",
-      "mediaType": 1,
-      "hashtags": ["puppy", "cute", "playful"],
-      "userUsername": "pet_lover",
       "userAvatar": "https://avatar.iran.liara.run/public/boy"
     }
   ]

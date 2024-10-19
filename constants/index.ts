@@ -20,6 +20,7 @@ export const Colors = {
   BORDER_ALT: '#f3f3f3',
   SEMI_TRANSPARENT_BLACK: 'rgba(0, 0, 0, 0.1)',
   TINT_COLOR: '#666',
+  DISABLED_BACKGROUND: 'rgba(0, 0, 0, 0.5)',
 } as const;
 
 export const Spacing = {
@@ -32,6 +33,7 @@ export const Spacing = {
   SPACE_2XL: 28,
   SPACE_3XL: 32,
   SPACE_G: 48,
+  SPACE_H: 50,
 } as const;
 
 export const FontSizes = {
@@ -62,6 +64,7 @@ export const BorderRadius = {
   M: 8,
   L: 12,
   XXL: 20,
+  FULL: 100,
 } as const;
 
 export const ClickSize = {
@@ -78,4 +81,13 @@ export const ColorAdjustments = {
   HOVER_PCT: '90%',
   ACTIVE_PCT: '78%',
 } as const;
+
+export const IconSize = 24 as const;
+
+export const LogoSize = {
+  height: 20,
+  width: 100,
+} as const;
+
+export const avaSize = 40;
 

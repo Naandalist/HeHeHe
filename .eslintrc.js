@@ -32,6 +32,7 @@ module.exports = {
     ],
     'react/react-in-jsx-scope': 'off',
     'import/prefer-default-export': 'off',
+    'react/prop-types': 'off',
     'react/jsx-uses-react': 'off',
     'react/jsx-uses-vars': 'off',
     'import/extensions': 'off',

@@ -1,9 +1,9 @@
 export type PostInfo = {
-  postID: string | number; // Allow postID to be either string or number
+  postID: string | number;
   title: string;
   totalUpvotes: number;
   totalComments: number;
-  createTime: string | number; // Allow createTime to be either string or number
+  createTime: string | number;
   mediaWidth: number;
   mediaHeight: number;
   media: string;
@@ -16,9 +16,9 @@ export type PostInfo = {
 export interface ApiResponse {
   status: string;
   message: string;
-  data: PostInfo[]; // Changed to directly be an array of PostInfo
+  data: PostInfo[];
 }
 
 export interface FetchPostsResponse {
-  postInfos: PostInfo[]; // Changed to match the structure expected by HomeScreen
+  postInfos: PostInfo[];
 }
