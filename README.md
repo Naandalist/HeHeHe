@@ -1,50 +1,37 @@
-# Welcome to your Expo app 👋
+# Welcome to HEHEHE App 
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This is social meme community app built with Expo.
 
 ## Get started
 
 1. Install dependencies
 
    ```bash
-   npm install
+   bun install
    ```
 
 2. Start the app
 
    ```bash
-    npx expo start
+    bun start
    ```
 
-In the output, you'll find options to open the app in a
+## Feature
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+1. The home page consists of a virtualized infinite scroll containing posts (by simulating fetch data).  ✅
+2. Image or video posts have a fixed aspect ratio (4:1) to prevent layout shifting when loading media. ✅
+3. Videos autoplayed once entering the viewport, also have a pause/play button, mute button, and slider to control the timeline. ✅
+4. Zoom in image/video through pinching motion. ✅
+5. Each post has a user avatar, user username, create date, hashtags, and some buttons. ✅
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+# Code
 
-## Get a fresh project
+- Typescript ✅
+- Hardcoded colors, numbers, or other variables has avoided ✅
+- Unify components such as icons and buttons. Make sure to reuse and prevent redundant components ✅
+- Styles and components must not be nested into a single file ✅
+- Use Eslint AirBnB style & Prettier ✅
+- Use comments '//' on codes that are not straight forward ✅
 
-When you're ready, run:
 
-```bash
-npm run reset-project
-```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
